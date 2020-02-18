@@ -2,27 +2,20 @@ package sample;
 
 public class User {
 
-    private int id;
     private String username, name, lastName, email, password;
 
-    public User(int id, String username, String name, String lastName) {
-        this.id = id;
-        this.username = username;
-        this.name = name;
-        this.lastName = lastName;
-    }
 
     public User() {
     }
 
-    public int getId() {
-        return id;
+    public User(String username, String name, String lastName, String email, String password) {
+        this.username = username;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
-    public User setId(int id) {
-        this.id = id;
-        return this;
-    }
 
     public String getUsername() {
         return username;
