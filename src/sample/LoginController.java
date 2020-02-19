@@ -65,7 +65,29 @@ public class LoginController {
         person.setPassword(fieldPassword.getText());
         Person p = baza.find(person);
 
-
-
+        if (p == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Greška");
+            alert.setHeaderText("Korisnik ne postoji");
+            alert.setContentText("Pokušajte ponovo");
+            alert.setResizable(true);
+            alert.show();
+        } else if (p instanceof Administrator) {
+            //otvori prozor za admina
+            closeWindow();
+        } else if(p instanceof User){
+            //otvori prozor za usera
+            closeWindow();
+        }
     }
+
+
+        private void closeWindow() {
+            Stage stage = (Stage) fieldUsername.getScene().getWindow();
+            stage.close();
+        }
+
+
+
+
 }
