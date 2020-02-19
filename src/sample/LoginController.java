@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +15,7 @@ public class LoginController {
     public TextField fieldUsername;
     public PasswordField fieldPassword;
     public Button btnLogin;
+    private RegisterController registerController;
 
     public void otvoriRegistraciju(ActionEvent actionEvent) {
         Parent root = null;
@@ -29,9 +27,40 @@ public class LoginController {
             primaryStage.setResizable(false);
             primaryStage.show();
 
+            primaryStage.setOnHiding(event -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Uspješna registracija");
+                alert.setHeaderText("Uspješno ste kreirali profil");
+                alert.setContentText("Prijavite se na vaš profil");
+                alert.setResizable(true);
+                alert.show();
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void login(ActionEvent actionEvent) {
+        boolean sveOk = true;
+
+        if (fieldUsername.getText().trim().isEmpty()) {
+            fieldUsername.getStyleClass().removeAll("poljeIspravno");
+            fieldUsername.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        } else {
+            fieldUsername.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldUsername.getStyleClass().add("poljeIspravno");
+        }
+
+        if (fieldPassword.getText().trim().isEmpty()) {
+            fieldPassword.getStyleClass().removeAll("poljeIspravno");
+            fieldPassword.getStyleClass().add("poljeNijeIspravno");
+            sveOk = false;
+        } else {
+            fieldPassword.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldPassword.getStyleClass().add("poljeIspravno");
+        }
     }
 }

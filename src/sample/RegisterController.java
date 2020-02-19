@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class RegisterController {
 
@@ -16,11 +17,12 @@ public class RegisterController {
     public TextField fieldLastName;
     public TextField fieldName;
     private BibliotekaDAO baza;
+    private User user;
 
     public RegisterController() {
         baza = BibliotekaDAO.getInstance();
+        user = new User();
     }
-
 
     public void registruj(ActionEvent actionEvent) {
 
@@ -88,6 +90,25 @@ public class RegisterController {
 
         if(!sveOk) return;
 
-        baza.addUser(new User(fieldUsername.getText(), fieldName.getText(), fieldLastName.getText(), fieldEmail.getText(), fieldPassword.getText()));
+        user.setUsername(fieldUsername.getText());
+        user.setName(fieldName.getText());
+        user.setLastName(fieldLastName.getText());
+        user.setEmail( fieldEmail.getText());
+        user.setPassword(fieldPassword.getText());
+
+
+        baza.addUser(user);
+
+        closeWindow();
+
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) fieldName.getScene().getWindow();
+        stage.close();
     }
 }
