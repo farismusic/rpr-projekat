@@ -9,7 +9,7 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, users;
 
     private BibliotekaDAO(){
 
@@ -107,6 +107,16 @@ public class BibliotekaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public User giveUserFromResultSet(ResultSet resultSet){
+        User user = null;
+        try {
+            user = new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
 }
