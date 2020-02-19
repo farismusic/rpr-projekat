@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -97,9 +98,15 @@ public class RegisterController {
         user.setPassword(fieldPassword.getText());
 
 
-        baza.addUser(user);
-
-        closeWindow();
+        if(baza.addUser(user)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Uspješna registracija");
+            alert.setHeaderText("Uspješno ste kreirali profil");
+            alert.setContentText("Prijavite se na vaš profil");
+            alert.setResizable(true);
+            alert.show();
+            closeWindow();
+        }
 
     }
 

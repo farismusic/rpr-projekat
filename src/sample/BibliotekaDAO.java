@@ -1,15 +1,18 @@
 package sample;
 
+import javafx.scene.control.Alert;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, users;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery;
 
     private BibliotekaDAO(){
 
@@ -32,6 +35,10 @@ public class BibliotekaDAO {
 
         try {
             addAdminQuery = connection.prepareStatement("INSERT INTO admin VALUES (?, ?, ?, ?, ?)");
+            findAdminQuery = connection.prepareStatement("SELECT * FROM admin WHERE username = ?");
+            findUserQuery = connection.prepareStatement("SELECT * FROM user WHERE username = ?");
+            adminsQuery = connection.prepareStatement("SELECT * FROM admin");
+            usersQuery = connection.prepareStatement("SELECT * FROM user");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,21 +88,31 @@ public class BibliotekaDAO {
         }
     }
 
-    public void addUser(User user){
+    public boolean addUser(User user){
         try {
+
+            addUserQuery = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
+
             addUserQuery.setString(1, user.getUsername());
             addUserQuery.setString(2, user.getName());
             addUserQuery.setString(3, user.getLastName());
             addUserQuery.setString(4, user.getEmail());
             addUserQuery.setString(5, user.getPassword());
-
             addUserQuery.executeUpdate();
+            return true;
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Greška");
+            alert.setHeaderText("Korisnik sa tim korisničkim imenom već postoji");
+            alert.setContentText("Pokušajte ponovo");
+            alert.setResizable(true);
+            alert.show();
+            return false;
         }
     }
 
-    public void addAdmin(User user){
+    public void addAdmin(Administrator user){
         try {
             addAdminQuery.setString(1, user.getUsername());
             addAdminQuery.setString(2, user.getName());
@@ -105,11 +122,21 @@ public class BibliotekaDAO {
 
             addAdminQuery.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Korisnik sa tim korisničkim imenom već postoji");
         }
     }
 
-    public User giveUserFromResultSet(ResultSet resultSet){
+    public Administrator getAdministratorFromResultSet(ResultSet resultSet){
+        Administrator user = null;
+        try {
+            user = new Administrator(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public User getUserFromResultSet(ResultSet resultSet){
         User user = null;
         try {
             user = new User(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5));
@@ -117,6 +144,57 @@ public class BibliotekaDAO {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public Person find(Person person){
+
+        ArrayList<Administrator> admins = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
+
+        admins.addAll(admins());
+        users.addAll(users());
+
+        for (Administrator a : admins){
+            if(a.getUsername().equals(person.getUsername()) && a.getPassword().equals(person.getPassword())){
+                return new Administrator(a.getUsername(), a.getName(), a.getLastName(), a.getEmail(), a.getPassword());
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Administrator> admins(){
+
+        ArrayList<Administrator> admins = new ArrayList<>();
+
+        try {
+            ResultSet rs = adminsQuery.executeQuery();
+            while(rs.next()){
+                admins.add(getAdministratorFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return admins;
+    }
+
+    public ArrayList<User> users(){
+
+        ArrayList<User> users = new ArrayList<>();
+
+        try {
+            ResultSet rs = usersQuery.executeQuery();
+            while(rs.next()){
+                users.add(getUserFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 
 }

@@ -1,6 +1,8 @@
 package sample;
 
-public class Person {
+import java.util.Objects;
+
+public class Person implements Comparable<Person>{
 
     private String username, name, lastName, email, password;
 
@@ -60,5 +62,29 @@ public class Person {
     public Person setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return (this.getUsername().equals(person.getUsername()) && this.getPassword().equals(person.getPassword()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, name, lastName, email, password);
+    }
+
+    @Override
+    public String toString() {
+        return this.getUsername() + " " + this.getPassword();
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        if(this.getUsername().equals(o.getUsername()) && this.getPassword().equals(o.getPassword())) return 0;
+        else return this.getLastName().compareTo(o.getLastName());
     }
 }

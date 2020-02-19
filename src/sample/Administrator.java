@@ -1,6 +1,6 @@
 package sample;
 
-public class Administrator extends Person {
+public class Administrator extends Person{
 
     public Administrator() {
     }

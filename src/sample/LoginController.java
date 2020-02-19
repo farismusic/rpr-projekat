@@ -15,7 +15,13 @@ public class LoginController {
     public TextField fieldUsername;
     public PasswordField fieldPassword;
     public Button btnLogin;
-    private RegisterController registerController;
+    private BibliotekaDAO baza;
+    private Person person;
+
+    public LoginController() {
+        baza = BibliotekaDAO.getInstance();
+        person = new Person();
+    }
 
     public void otvoriRegistraciju(ActionEvent actionEvent) {
         Parent root = null;
@@ -27,14 +33,6 @@ public class LoginController {
             primaryStage.setResizable(false);
             primaryStage.show();
 
-            primaryStage.setOnHiding(event -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Uspješna registracija");
-                alert.setHeaderText("Uspješno ste kreirali profil");
-                alert.setContentText("Prijavite se na vaš profil");
-                alert.setResizable(true);
-                alert.show();
-            });
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,5 +60,12 @@ public class LoginController {
             fieldPassword.getStyleClass().removeAll("poljeNijeIspravno");
             fieldPassword.getStyleClass().add("poljeIspravno");
         }
+
+        person.setUsername(fieldUsername.getText());
+        person.setPassword(fieldPassword.getText());
+        Person p = baza.find(person);
+
+
+
     }
 }
