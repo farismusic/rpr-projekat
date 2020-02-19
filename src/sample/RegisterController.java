@@ -29,7 +29,7 @@ public class RegisterController {
 
         boolean sveOk = true;
 
-        if (fieldUsername.getText().trim().isEmpty()) {
+        if (fieldUsername.getText().trim().isEmpty() || fieldUsername.getText().length() <= 5) {
             fieldUsername.getStyleClass().removeAll("poljeIspravno");
             fieldUsername.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
@@ -56,7 +56,7 @@ public class RegisterController {
             fieldLastName.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldEmail.getText().trim().isEmpty()) {
+        if (fieldEmail.getText().trim().isEmpty() || !validanEmail(fieldEmail.getText())) {
             fieldEmail.getStyleClass().removeAll("poljeIspravno");
             fieldEmail.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
@@ -65,7 +65,7 @@ public class RegisterController {
             fieldEmail.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldPassword.getText().trim().isEmpty()) {
+        if (fieldPassword.getText().trim().isEmpty() || fieldPassword.getText().length() < 8 || fieldPassword.getText().length() > 16) {
             fieldPassword.getStyleClass().removeAll("poljeIspravno");
             fieldPassword.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
@@ -74,7 +74,7 @@ public class RegisterController {
             fieldPassword.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldPasswordRepeat.getText().trim().isEmpty()) {
+        if (fieldPasswordRepeat.getText().trim().isEmpty() || fieldPassword.getText().length() < 8 || fieldPassword.getText().length() > 16) {
             fieldPasswordRepeat.getStyleClass().removeAll("poljeIspravno");
             fieldPasswordRepeat.getStyleClass().add("poljeNijeIspravno");
             sveOk = false;
@@ -117,5 +117,31 @@ public class RegisterController {
     private void closeWindow() {
         Stage stage = (Stage) fieldName.getScene().getWindow();
         stage.close();
+    }
+
+    protected boolean validanEmail(String s) {
+        if (!s.contains("@")) {
+            return false;
+        } else {
+            String[] email = s.split("@");
+            if (email.length < 2) return false;
+            boolean imaLiSlovo = false;
+            for (char c : email[0].toCharArray()) {
+                if (Character.isLetter(c)) {
+                    imaLiSlovo = true;
+                    break;
+                }
+            }
+            if (!imaLiSlovo) return false;
+            imaLiSlovo = false;
+            for (char c : email[1].toCharArray()) {
+                if (Character.isLetter(c)) {
+                    imaLiSlovo = true;
+                    break;
+                }
+            }
+            if (!imaLiSlovo) return false;
+        }
+        return true;
     }
 }

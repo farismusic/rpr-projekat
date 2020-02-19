@@ -89,7 +89,24 @@ public class BibliotekaDAO {
     }
 
     public boolean addUser(User user){
+
+        ArrayList<Administrator> administrators = new ArrayList<>();
+        boolean imaLi = false;
+
+        administrators.addAll(admins());
+
+
+        for (Administrator a : administrators){
+            if(a.getUsername().equals(user.getUsername())){
+                imaLi = true;
+            }
+        }
+
         try {
+
+            if(imaLi){
+                throw new SQLException();
+            }
 
             addUserQuery = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
 
@@ -102,27 +119,41 @@ public class BibliotekaDAO {
             return true;
 
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Greška");
-            alert.setHeaderText("Korisnik sa tim korisničkim imenom već postoji");
-            alert.setContentText("Pokušajte ponovo");
-            alert.setResizable(true);
-            alert.show();
+            alreadyExists(user.getUsername());
             return false;
         }
     }
 
-    public void addAdmin(Administrator user){
+    public void addAdmin(Administrator administrator){
+
+
+        ArrayList<User> users = new ArrayList<>();
+        boolean imaLi = false;
+
+        users.addAll(users());
+
+
+        for (User a : users){
+            if(a.getUsername().equals(administrator.getUsername())){
+                imaLi = true;
+            }
+        }
+
         try {
-            addAdminQuery.setString(1, user.getUsername());
-            addAdminQuery.setString(2, user.getName());
-            addAdminQuery.setString(3, user.getLastName());
-            addAdminQuery.setString(4, user.getEmail());
-            addAdminQuery.setString(5, user.getPassword());
+
+            if(imaLi){
+                throw new SQLException();
+            }
+
+            addAdminQuery.setString(1, administrator.getUsername());
+            addAdminQuery.setString(2, administrator.getName());
+            addAdminQuery.setString(3, administrator.getLastName());
+            addAdminQuery.setString(4, administrator.getEmail());
+            addAdminQuery.setString(5, administrator.getPassword());
 
             addAdminQuery.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Korisnik sa tim korisničkim imenom već postoji");
+            alreadyExists(administrator.getUsername());
         }
     }
 
@@ -157,6 +188,12 @@ public class BibliotekaDAO {
         for (Administrator a : admins){
             if(a.getUsername().equals(person.getUsername()) && a.getPassword().equals(person.getPassword())){
                 return new Administrator(a.getUsername(), a.getName(), a.getLastName(), a.getEmail(), a.getPassword());
+            }
+        }
+
+        for (User a : users){
+            if(a.getUsername().equals(person.getUsername()) && a.getPassword().equals(person.getPassword())){
+                return new User(a.getUsername(), a.getName(), a.getLastName(), a.getEmail(), a.getPassword());
             }
         }
 
@@ -195,6 +232,15 @@ public class BibliotekaDAO {
         }
 
         return users;
+    }
+
+    public void alreadyExists(String username){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Greška");
+        alert.setHeaderText("Korisnik sa tim korisničkim imenom " + username + " već postoji");
+        alert.setContentText("Pokušajte ponovo");
+        alert.setResizable(true);
+        alert.show();
     }
 
 }

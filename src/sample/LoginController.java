@@ -73,10 +73,10 @@ public class LoginController {
             alert.setResizable(true);
             alert.show();
         } else if (p instanceof Administrator) {
-            //otvori prozor za admina
+            System.out.println("Administrator");
             closeWindow();
         } else if(p instanceof User){
-            //otvori prozor za usera
+            System.out.println("User");
             closeWindow();
         }
     }
