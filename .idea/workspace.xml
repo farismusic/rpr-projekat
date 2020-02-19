@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Kreirana baza.">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_xerial_sqlite_jdbc_3_21_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Testirana baza. Dodana nova tabela za admine. Kreirana klasa BibliotekaDAO.">
+      <change afterPath="$PROJECT_DIR$/resources/css/validation.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baza.db" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baza.db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/register.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/sample/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/sample/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/sample/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/sample/RegisterController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/fxml/register.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpr-projekat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rpr-projekat.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/RegisterController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,6 +78,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -130,6 +125,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -253,7 +249,7 @@
       <option name="presentableId" value="Default" />
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
-      <workItem from="1582062405599" duration="6541000" />
+      <workItem from="1582062405599" duration="7621000" />
     </task>
     <task id="LOCAL-00001" summary="Kreiran GUI za Login i Registraciju.">
       <created>1582066768646</created>
@@ -269,7 +265,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582067891833</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Testirana baza. Dodana nova tabela za admine. Kreirana klasa BibliotekaDAO.">
+      <created>1582069453380</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582069453380</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Testirana baza. Dodana nova tabela za admine. Kreirana klasa BibliotekaDAO.">
+      <created>1582069486772</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582069486772</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,17 +290,18 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Kreiran GUI za Login i Registraciju." />
     <MESSAGE value="Kreirana baza." />
-    <option name="LAST_COMMIT_MESSAGE" value="Kreirana baza." />
+    <MESSAGE value="Testirana baza. Dodana nova tabela za admine. Kreirana klasa BibliotekaDAO." />
+    <option name="LAST_COMMIT_MESSAGE" value="Testirana baza. Dodana nova tabela za admine. Kreirana klasa BibliotekaDAO." />
   </component>
   <component name="WindowStateProjectService">
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1582068843963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582068843963" />
-    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1582069451255">
+    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1582069499296">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582069451255" />
+    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582069499296" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1582066625282">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -299,22 +310,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="830" y="412" width="260" height="270" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582066616527" />
-    <state width="1292" height="277" key="GridCell.Tab.0.bottom" timestamp="1582069477588">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1582070580763">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1292" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582069477588" />
-    <state width="1292" height="277" key="GridCell.Tab.0.center" timestamp="1582069477587">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582070580763" />
+    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1582070580763">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1292" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582069477587" />
-    <state width="1292" height="277" key="GridCell.Tab.0.left" timestamp="1582069477587">
+    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582070580763" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1582070580763">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1292" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582069477587" />
-    <state width="1292" height="277" key="GridCell.Tab.0.right" timestamp="1582069477587">
+    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582070580763" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1582070580763">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1292" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582069477587" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582070580763" />
     <state x="440" y="93" key="SettingsEditor" timestamp="1582068574963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
