@@ -75,17 +75,30 @@ public class LoginController {
         } else if (p instanceof Administrator) {
             System.out.println("Administrator");
             closeWindow();
-        } else if(p instanceof User){
-            System.out.println("User");
+        } else if (p instanceof User) {
             closeWindow();
+
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/fxml/userMain.fxml"));
+                Stage primaryStage = new Stage();
+                primaryStage.setTitle(p.getUsername());
+                primaryStage.setScene(new Scene(root, 600, 350));
+                primaryStage.setResizable(false);
+                primaryStage.show();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
-
-        private void closeWindow() {
-            Stage stage = (Stage) fieldUsername.getScene().getWindow();
-            stage.close();
-        }
+    private void closeWindow() {
+        Stage stage = (Stage) fieldUsername.getScene().getWindow();
+        stage.close();
+    }
 
 
 

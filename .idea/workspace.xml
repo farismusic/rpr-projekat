@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Izbacivanje alerta ako pri prijavi korisnik ne postoji u bazi">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baza.db" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/fxml/register.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +76,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -93,6 +89,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/resources/fxml/login.fxml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
@@ -128,7 +127,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/zadaca-2-farismusic" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
@@ -225,17 +224,7 @@
       <list>
         <serviceView>
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:baza" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:baza" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@47ecac9a" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -255,7 +244,8 @@
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1582062405599" duration="9888000" />
       <workItem from="1582073190749" duration="5450000" />
-      <workItem from="1582123501121" duration="4288000" />
+      <workItem from="1582123501121" duration="4892000" />
+      <workItem from="1582210421181" duration="4885000" />
     </task>
     <task id="LOCAL-00001" summary="Kreiran GUI za Login i Registraciju.">
       <created>1582066768646</created>
@@ -327,7 +317,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582078638380</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Kompletirana forma prijave i forma registracije.">
+      <created>1582153260174</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582153260174</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila.">
+      <created>1582215722787</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1582215722787</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,57 +348,63 @@
     <MESSAGE value="Popravljen dizajn. Umjesto samo klase User sada imam klasu Person iz koje su izvedene Administrator i User s tim da cu o Administratoru cuvati vise podataka." />
     <MESSAGE value="implementirano Izbacivanje alerta ako korisnik sa istim usernameom vec postoji i trazenej u bazi podataka pri logovanju" />
     <MESSAGE value="Izbacivanje alerta ako pri prijavi korisnik ne postoji u bazi" />
-    <option name="LAST_COMMIT_MESSAGE" value="Izbacivanje alerta ako pri prijavi korisnik ne postoji u bazi" />
+    <MESSAGE value="Kompletirana forma prijave i forma registracije." />
+    <MESSAGE value="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila." />
+    <option name="LAST_COMMIT_MESSAGE" value="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="177" key="#Inspections" timestamp="1582153593701">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="177" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582153593701" />
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1582075155847">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582075155847" />
-    <state x="287" y="113" key="CommitChangelistDialog2" timestamp="1582078637301">
+    <state x="287" y="113" key="CommitChangelistDialog2" timestamp="1582215720699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="287" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582078637301" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1582066625282">
+    <state x="287" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582215720699" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1582213660704">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582066625282" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582213660704" />
     <state x="830" y="412" width="260" height="270" key="Github.ShareDialog" timestamp="1582066616527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="830" y="412" width="260" height="270" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582066616527" />
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1582153199568">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1582215592720">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582153199568" />
-    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1582153199568">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592720" />
+    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1582215592719">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582153199568" />
-    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1582153199568">
+    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1582215592719">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582153199568" />
-    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1582153199568">
+    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1582215592719">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582153199568" />
-    <state width="1876" height="342" key="GridCell.Tab.1.bottom" timestamp="1582078652819">
+    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
+    <state width="1876" height="342" key="GridCell.Tab.1.bottom" timestamp="1582212370206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582078652819" />
-    <state width="1876" height="342" key="GridCell.Tab.1.center" timestamp="1582078652818">
+    <state width="1876" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
+    <state width="1876" height="342" key="GridCell.Tab.1.center" timestamp="1582212370206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582078652818" />
-    <state width="1876" height="342" key="GridCell.Tab.1.left" timestamp="1582078652818">
+    <state width="1876" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
+    <state width="1876" height="342" key="GridCell.Tab.1.left" timestamp="1582212370206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582078652818" />
-    <state width="1876" height="342" key="GridCell.Tab.1.right" timestamp="1582078652819">
+    <state width="1876" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
+    <state width="1876" height="342" key="GridCell.Tab.1.right" timestamp="1582212370206">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582078652819" />
+    <state width="1876" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
     <state x="440" y="93" key="SettingsEditor" timestamp="1582068574963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -403,14 +413,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="696" y="434" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582069470146" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1582078644652">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1582153290797">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582078644652" />
-    <state x="655" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1582123590371">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582153290797" />
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1582210424921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582123590371" />
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582210424921" />
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1582068569279">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
