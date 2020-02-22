@@ -21,18 +21,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        LocalDateTime datumVrijeme = LocalDateTime.now();
-        String d = datumVrijeme.format(DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss"));
-        System.out.println(d);
-
-        String[] niz = d.split(" ");
-
-        String[] vSS = niz[1].split(":");
-        LocalTime vss1 = LocalTime.of(Integer.parseInt(vSS[0]), Integer.parseInt(vSS[1]), Integer.parseInt(vSS[2]));
-        System.out.println(vss1);
-
-
-
     }
 
 

@@ -16,6 +16,12 @@ public class UserMainController {
 
     public MenuItem odjaviSe;
     public TableView tableView;
+    private BibliotekaDAO baza;
+
+    public UserMainController() {
+        baza = BibliotekaDAO.getInstance();
+    }
+
 
     public void odjaviKorisnika(ActionEvent actionEvent) {
         closeWindow();

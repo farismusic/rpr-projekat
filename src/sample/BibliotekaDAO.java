@@ -5,14 +5,16 @@ import javafx.scene.control.Alert;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery;
 
     private BibliotekaDAO(){
 
@@ -40,6 +42,7 @@ public class BibliotekaDAO {
             adminsQuery = connection.prepareStatement("SELECT * FROM admins");
             usersQuery = connection.prepareStatement("SELECT * FROM users");
             nextIdBookQuery = connection.prepareStatement("SELECT max(id) + 1 FROM books");
+            getRentingsQuery = connection.prepareStatement("select b.naziv, r.end from books b, users u, rentings r where r.renter = ? and r.book = b.id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -244,6 +247,26 @@ public class BibliotekaDAO {
         alert.setContentText("Pokušajte ponovo");
         alert.setResizable(true);
         alert.show();
+    }
+
+    public ArrayList<HashMap<String, String>> getUsersBooks(User user){
+
+        ArrayList<HashMap<String, String>> podignuteKnjige = new ArrayList<>();
+
+        try {
+            getRentingsQuery.setString(1, user.getUsername());
+            ResultSet rs = getRentingsQuery.executeQuery();
+
+            while (rs.next()){
+                HashMap<String, String> help = new HashMap<>();
+                help.put(rs.getString(1), rs.getString(2));
+
+                podignuteKnjige.add(help);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return podignuteKnjige;
     }
 
 }
