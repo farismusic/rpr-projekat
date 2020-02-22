@@ -1,12 +1,9 @@
 package sample;
 
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-
-import javax.script.Bindings;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserMainController {
@@ -96,6 +89,18 @@ public class UserMainController {
     }
 
     public void showBooks(){
-        baza.books().forEach(book -> System.out.println(book));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/bookUser.fxml"));
+            Stage primaryStage = new Stage();
+            primaryStage.setTitle("Knjige");
+            primaryStage.setScene(new Scene(root, 700, 400));
+            primaryStage.setResizable(false);
+            primaryStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

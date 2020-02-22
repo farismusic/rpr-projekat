@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -14,7 +13,8 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery,
+    restBooksQuery;
 
     private BibliotekaDAO(){
 
@@ -46,6 +46,7 @@ public class BibliotekaDAO {
             getRentingsQuery = connection.prepareStatement("select b.naziv, r.end from books b, users u, rentings r where r.renter = ? and r.book = b.id");
             addBookQuery = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
+            restBooksQuery = connection.prepareStatement("select b.id, b.naziv, b.autor, b.zanr, b.broj_stranica, b.broj_knjiga - count(r.book) from books b, rentings r where r.book = b.id group by b.id;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -316,6 +317,23 @@ public class BibliotekaDAO {
             e.printStackTrace();
         }
         return knjige;
+    }
+
+    public ArrayList<Book> getRestBooks(){
+
+        ArrayList<Book> preostaleKnjige = new ArrayList<>();
+
+        try {
+            ResultSet rs = restBooksQuery.executeQuery();
+
+            while(rs.next()){
+                preostaleKnjige.add(getBookFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return preostaleKnjige;
     }
 
 
