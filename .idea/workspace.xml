@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila.">
+      <change afterPath="$PROJECT_DIR$/src/sample/Renting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baza.db" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baza.db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,12 +29,7 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="baza" type="feb32156:DbDataSourceImpl" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="DebuggerManager">
@@ -224,7 +224,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:baza [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:baza [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@1c651303" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -245,7 +255,8 @@
       <workItem from="1582062405599" duration="9888000" />
       <workItem from="1582073190749" duration="5450000" />
       <workItem from="1582123501121" duration="4892000" />
-      <workItem from="1582210421181" duration="4885000" />
+      <workItem from="1582210421181" duration="4899000" />
+      <workItem from="1582364896831" duration="1592000" />
     </task>
     <task id="LOCAL-00001" summary="Kreiran GUI za Login i Registraciju.">
       <created>1582066768646</created>
@@ -331,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582215722787</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Kreirane klase Book i Notification. Kreiran glavni prozor kada se uloguje korisnik i implementirana opcija odjavljivanja sa profila.">
+      <created>1582216162389</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1582216162389</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,14 +375,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="177" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582153593701" />
-    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1582075155847">
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1582366515528">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582075155847" />
-    <state x="287" y="113" key="CommitChangelistDialog2" timestamp="1582215720699">
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582366515528" />
+    <state x="287" y="113" key="CommitChangelistDialog2" timestamp="1582216161589">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="287" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582215720699" />
+    <state x="287" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582216161589" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1582213660704">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -373,38 +391,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="830" y="412" width="260" height="270" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582066616527" />
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1582215592720">
+    <state width="1292" height="277" key="GridCell.Tab.0.bottom" timestamp="1582366454064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592720" />
-    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1582215592719">
+    <state width="1292" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582366454064" />
+    <state width="1292" height="277" key="GridCell.Tab.0.center" timestamp="1582366454064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
-    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1582215592719">
+    <state width="1292" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582366454064" />
+    <state width="1292" height="277" key="GridCell.Tab.0.left" timestamp="1582366454064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
-    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1582215592719">
+    <state width="1292" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582366454064" />
+    <state width="1292" height="277" key="GridCell.Tab.0.right" timestamp="1582366454064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582215592719" />
-    <state width="1876" height="342" key="GridCell.Tab.1.bottom" timestamp="1582212370206">
+    <state width="1292" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582366454064" />
+    <state width="1876" height="342" key="GridCell.Tab.1.bottom" timestamp="1582216167678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
-    <state width="1876" height="342" key="GridCell.Tab.1.center" timestamp="1582212370206">
+    <state width="1876" height="342" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1582216167678" />
+    <state width="1876" height="342" key="GridCell.Tab.1.center" timestamp="1582216167678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
-    <state width="1876" height="342" key="GridCell.Tab.1.left" timestamp="1582212370206">
+    <state width="1876" height="342" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1582216167678" />
+    <state width="1876" height="342" key="GridCell.Tab.1.left" timestamp="1582216167678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
-    <state width="1876" height="342" key="GridCell.Tab.1.right" timestamp="1582212370206">
+    <state width="1876" height="342" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1582216167678" />
+    <state width="1876" height="342" key="GridCell.Tab.1.right" timestamp="1582216167678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582212370206" />
+    <state width="1876" height="342" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1582216167678" />
     <state x="440" y="93" key="SettingsEditor" timestamp="1582068574963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -417,10 +435,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582153290797" />
-    <state x="655" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1582210424921">
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1582364963981">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582210424921" />
+    <state x="655" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582364963981" />
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1582068569279">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

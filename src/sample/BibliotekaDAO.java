@@ -12,7 +12,7 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery;
 
     private BibliotekaDAO(){
 
@@ -23,22 +23,23 @@ public class BibliotekaDAO {
         }
 
         try {
-            addUserQuery = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
+            addUserQuery = connection.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
         } catch (SQLException e) {
             regenerateDB();
             try {
-                addUserQuery = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
+                addUserQuery = connection.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
 
         try {
-            addAdminQuery = connection.prepareStatement("INSERT INTO admin VALUES (?, ?, ?, ?, ?)");
-            findAdminQuery = connection.prepareStatement("SELECT * FROM admin WHERE username = ?");
-            findUserQuery = connection.prepareStatement("SELECT * FROM user WHERE username = ?");
-            adminsQuery = connection.prepareStatement("SELECT * FROM admin");
-            usersQuery = connection.prepareStatement("SELECT * FROM user");
+            addAdminQuery = connection.prepareStatement("INSERT INTO admins VALUES (?, ?, ?, ?, ?)");
+            findAdminQuery = connection.prepareStatement("SELECT * FROM admins WHERE username = ?");
+            findUserQuery = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+            adminsQuery = connection.prepareStatement("SELECT * FROM admins");
+            usersQuery = connection.prepareStatement("SELECT * FROM users");
+            nextIdBookQuery = connection.prepareStatement("SELECT max(id) + 1 FROM books");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,7 +109,7 @@ public class BibliotekaDAO {
                 throw new SQLException();
             }
 
-            addUserQuery = connection.prepareStatement("INSERT INTO user VALUES (?, ?, ?, ?, ?)");
+            addUserQuery = connection.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
 
             addUserQuery.setString(1, user.getUsername());
             addUserQuery.setString(2, user.getName());
@@ -144,6 +145,8 @@ public class BibliotekaDAO {
             if(imaLi){
                 throw new SQLException();
             }
+
+            addAdminQuery = connection.prepareStatement("INSERT INTO admins VALUES (?, ?, ?, ?, ?)");
 
             addAdminQuery.setString(1, administrator.getUsername());
             addAdminQuery.setString(2, administrator.getName());
