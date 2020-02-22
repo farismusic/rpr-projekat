@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 public class LoginController {
 
     public Hyperlink hyperlinkRegister;
@@ -78,15 +80,17 @@ public class LoginController {
         } else if (p instanceof User) {
             closeWindow();
 
+            Stage stage = new Stage();
             Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("/fxml/userMain.fxml"));
-                Stage primaryStage = new Stage();
-                primaryStage.setTitle(p.getUsername());
-                primaryStage.setScene(new Scene(root, 600, 350));
-                primaryStage.setResizable(false);
-                primaryStage.show();
-
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userMain.fxml"));
+                UserMainController userMainController = new UserMainController((User) p);
+                loader.setController(userMainController);
+                root = loader.load();
+                stage.setTitle(p.getUsername());
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
 
             } catch (IOException e) {
                 e.printStackTrace();

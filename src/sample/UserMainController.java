@@ -1,27 +1,76 @@
 package sample;
 
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
+
+import javax.script.Bindings;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserMainController {
 
 
     public MenuItem odjaviSe;
-    public TableView tableView;
-    private BibliotekaDAO baza;
 
-    public UserMainController() {
+    public TableView<Map.Entry<String,String>> tableView;
+    public TableColumn<Map.Entry<String, String>, String> columnNaziv;
+    public TableColumn<Map.Entry<String, String>, String> columnRok;
+
+    private BibliotekaDAO baza;
+    private User user;
+    private ObservableList<Map.Entry<String, String>> iznajmljeneKnjige;
+
+    public UserMainController(User user) {
         baza = BibliotekaDAO.getInstance();
+        this.user = user;
+        iznajmljeneKnjige = FXCollections.observableArrayList(baza.getUsersBooks(user).entrySet());
     }
 
+    @FXML
+    public void initialize(){
+
+        tableView.setItems(iznajmljeneKnjige);
+
+        columnNaziv.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
+                // this callback returns property for just one cell, you can't use a loop here
+                // for first column we use key
+                return new SimpleStringProperty(p.getValue().getKey());
+            }
+        });
+
+        columnRok.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
+                // for second column we use value
+                return new SimpleStringProperty(p.getValue().getValue());
+            }
+        });
+
+        tableView.getColumns().setAll(columnNaziv, columnRok);
+
+    }
 
     public void odjaviKorisnika(ActionEvent actionEvent) {
         closeWindow();
@@ -44,5 +93,9 @@ public class UserMainController {
     private void closeWindow() {
         Stage stage = (Stage) tableView.getScene().getWindow();
         stage.close();
+    }
+
+    public void showBooks(){
+        baza.books().forEach(book -> System.out.println(book));
     }
 }

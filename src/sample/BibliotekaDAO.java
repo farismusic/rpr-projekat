@@ -14,7 +14,7 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery;
 
     private BibliotekaDAO(){
 
@@ -42,7 +42,10 @@ public class BibliotekaDAO {
             adminsQuery = connection.prepareStatement("SELECT * FROM admins");
             usersQuery = connection.prepareStatement("SELECT * FROM users");
             nextIdBookQuery = connection.prepareStatement("SELECT max(id) + 1 FROM books");
+            nextIdRentQuery = connection.prepareStatement("SELECT max(id) + 1 FROM rentings");
             getRentingsQuery = connection.prepareStatement("select b.naziv, r.end from books b, users u, rentings r where r.renter = ? and r.book = b.id");
+            addBookQuery = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)");
+            booksQuery = connection.prepareStatement("SELECT * FROM books");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -183,6 +186,16 @@ public class BibliotekaDAO {
         return user;
     }
 
+    public Book getBookFromResultSet(ResultSet rs){
+
+        try {
+            return new Book(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Person find(Person person){
 
         ArrayList<Administrator> admins = new ArrayList<>();
@@ -249,24 +262,62 @@ public class BibliotekaDAO {
         alert.show();
     }
 
-    public ArrayList<HashMap<String, String>> getUsersBooks(User user){
+    public HashMap<String, String> getUsersBooks(User user){
 
-        ArrayList<HashMap<String, String>> podignuteKnjige = new ArrayList<>();
+        HashMap<String, String> podignuteKnjige = new HashMap<>();
 
         try {
             getRentingsQuery.setString(1, user.getUsername());
             ResultSet rs = getRentingsQuery.executeQuery();
 
             while (rs.next()){
-                HashMap<String, String> help = new HashMap<>();
-                help.put(rs.getString(1), rs.getString(2));
+                //HashMap<String, String> help = new HashMap<>();
+                podignuteKnjige.put(rs.getString(1), rs.getString(2));
 
-                podignuteKnjige.add(help);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return podignuteKnjige;
     }
+
+    public void addBook(Book book){
+
+        try {
+            ResultSet rs = nextIdBookQuery.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+            addBookQuery.setInt(1, id);
+            addBookQuery.setString(2, book.getName());
+            addBookQuery.setString(3, book.getAuthor());
+            addBookQuery.setString(4, book.getGenre());
+            addBookQuery.setInt(5, book.getBrojStranica());
+            addBookQuery.setInt(6, book.getBrojKnjiga());
+
+            addBookQuery.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ArrayList<Book> books(){
+        ArrayList<Book> knjige = new ArrayList<>();
+        try {
+            ResultSet rs = booksQuery.executeQuery();
+            while (rs.next()){
+                knjige.add(getBookFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return knjige;
+    }
+
+
 
 }
