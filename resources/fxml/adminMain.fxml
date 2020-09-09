@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -41,11 +40,10 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button contentDisplay="RIGHT" mnemonicParsing="false" text="Dodaj knjigu" />
-            <Button layoutX="526.0" layoutY="18.0" mnemonicParsing="false" text="Izbriši knjigu" />
-            <Button layoutX="526.0" layoutY="18.0" mnemonicParsing="false" text="Izmijeni knjigu" />
-            <Button layoutX="517.0" layoutY="18.0" mnemonicParsing="false" text="Dodaj korisnika" />
-            <Button layoutX="512.0" layoutY="18.0" mnemonicParsing="false" text="Izbriši korisnika" />
+          <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#actionDodajKnjigu" text="Dodaj knjigu" />
+            <Button layoutX="526.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionIzbrisiKnjigu" text="Izbriši knjigu" />
+            <Button layoutX="526.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionIzmijeniKnjigu" text="Izmijeni knjigu" />
+            <Button layoutX="512.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionIzbrisiKorisnika" text="Izbriši korisnika" />
         </buttons>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

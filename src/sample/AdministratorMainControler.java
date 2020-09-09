@@ -74,4 +74,37 @@ public class AdministratorMainControler {
         stage.close();
     }
 
+    public void actionDodajKnjigu(ActionEvent actionEvent) {
+
+
+
+    }
+
+    public void actionIzbrisiKnjigu (ActionEvent actionevent) {
+
+        Book book = tableViewKnjige.getSelectionModel().getSelectedItem();
+        if (book != null) {
+            baza.removeBook(book);
+
+            knjige.remove(book);
+            tableViewKnjige.refresh();
+        }
+
+    }
+
+    public void actionIzmijeniKnjigu (ActionEvent actionEvent) {
+
+    }
+
+    public void actionIzbrisiKorisnika (ActionEvent actionEvent) {
+
+        User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        if(user != null) {
+            baza.removeUser(user);
+            korisnici.remove(user);
+            tableViewKorisnici.refresh();
+        }
+
+    }
+
 }

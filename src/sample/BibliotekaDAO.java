@@ -14,7 +14,7 @@ public class BibliotekaDAO {
     private static BibliotekaDAO instance;
     private Connection connection;
     private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery,
-    restBooksQuery;
+    restBooksQuery, removeBookQuery, removeUserQuery;
 
     private BibliotekaDAO(){
 
@@ -47,6 +47,8 @@ public class BibliotekaDAO {
             addBookQuery = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
             restBooksQuery = connection.prepareStatement("select b.id, b.naziv, b.autor, b.zanr, b.broj_stranica, b.broj_knjiga - count(r.book) from books b, rentings r where r.book = b.id group by b.id;");
+            removeBookQuery = connection.prepareStatement("DELETE FROM books WHERE id = ?");
+            removeUserQuery = connection.prepareStatement("DELETE FROM users WHERE username = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -336,6 +338,22 @@ public class BibliotekaDAO {
         return preostaleKnjige;
     }
 
+    public void removeBook (Book book) {
+        try {
+            removeBookQuery.setInt(1, book.getId());
+            removeBookQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
+    public void removeUser (User user) {
+        try {
+            removeUserQuery.setString(1, user.getUsername());
+            removeUserQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 }
