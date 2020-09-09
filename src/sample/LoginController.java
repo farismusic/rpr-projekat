@@ -75,8 +75,25 @@ public class LoginController {
             alert.setResizable(true);
             alert.show();
         } else if (p instanceof Administrator) {
-            System.out.println("Administrator");
+
             closeWindow();
+
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminMain.fxml"));
+                AdministratorMainControler adminMainController = new AdministratorMainControler((Administrator) p);
+                loader.setController(adminMainController);
+                root = loader.load();
+                stage.setTitle(p.getUsername());
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         } else if (p instanceof User) {
             closeWindow();
 
