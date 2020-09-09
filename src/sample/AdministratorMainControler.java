@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 public class AdministratorMainControler {
 
     public TableView<Book> tableViewKnjige;
@@ -32,7 +34,7 @@ public class AdministratorMainControler {
     public AdministratorMainControler(Administrator admin) {
         this.admin = admin;
         baza = BibliotekaDAO.getInstance();
-        knjige = FXCollections.observableArrayList(baza.getRestBooks());
+        knjige = FXCollections.observableArrayList(baza.books());
         korisnici = FXCollections.observableArrayList(baza.users());
     }
 
@@ -77,6 +79,30 @@ public class AdministratorMainControler {
     public void actionDodajKnjigu(ActionEvent actionEvent) {
 
 
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"));
+            BookController bookController = new BookController();
+            loader.setController(bookController);
+            root = loader.load();
+            stage.setTitle("Dodaj knjigu");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            stage.setOnHiding(event -> {
+                Book b = bookController.getBook();
+                if (b != null) {
+                    baza.addBook(b);
+                    knjige.add(b);
+                    tableViewKnjige.refresh();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -93,6 +119,33 @@ public class AdministratorMainControler {
     }
 
     public void actionIzmijeniKnjigu (ActionEvent actionEvent) {
+
+        Book b = tableViewKnjige.getSelectionModel().getSelectedItem();
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"));
+            BookController bookController = new BookController(b);
+            loader.setController(bookController);
+            root = loader.load();
+            stage.setTitle(b.getName());
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            /*stage.setOnHiding(event -> {
+                Book b = bookController.getBook();
+                if (b != null) {
+                    baza.addBook(b);
+                    knjige.add(b);
+                    tableViewKnjige.refresh();
+                }
+            });*/
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

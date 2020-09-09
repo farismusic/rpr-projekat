@@ -49,6 +49,7 @@ public class BibliotekaDAO {
             restBooksQuery = connection.prepareStatement("select b.id, b.naziv, b.autor, b.zanr, b.broj_stranica, b.broj_knjiga - count(r.book) from books b, rentings r where r.book = b.id group by b.id;");
             removeBookQuery = connection.prepareStatement("DELETE FROM books WHERE id = ?");
             removeUserQuery = connection.prepareStatement("DELETE FROM users WHERE username = ?");
+            booksQuery = connection.prepareStatement("SELECT * FROM books");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -355,5 +356,7 @@ public class BibliotekaDAO {
             throwables.printStackTrace();
         }
     }
+
+
 
 }
