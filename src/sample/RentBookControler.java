@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class RentBookControler {
 
@@ -17,7 +19,11 @@ public class RentBookControler {
     public ChoiceBox<Book> choiceBoxBooks;
 
     public RentBookControler(ArrayList<Book> knjige, User user) {
-        this.knjige = FXCollections.observableArrayList(knjige);
+
+        Set<Book> set = new TreeSet<>();
+        set.addAll(knjige);
+
+        this.knjige = FXCollections.observableArrayList(set);
         this.user = user;
     }
 

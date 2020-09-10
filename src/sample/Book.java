@@ -2,7 +2,7 @@ package sample;
 
 import java.util.Objects;
 
-public class Book {
+public class Book implements Comparable<Book>{
     String name, author, genre;
     int id, brojStranica, brojKnjiga;
 
@@ -88,5 +88,10 @@ public class Book {
     @Override
     public String toString() {
         return getName();
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        return this.getName().compareToIgnoreCase(o.getName());
     }
 }
