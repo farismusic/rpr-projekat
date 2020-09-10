@@ -95,7 +95,8 @@ public class AdministratorMainControler {
                 Book b = bookController.getBook();
                 if (b != null) {
                     baza.addBook(b);
-                    knjige.add(b);
+                    knjige.clear();
+                    knjige.addAll(baza.books());
                     tableViewKnjige.refresh();
                 }
             });
@@ -112,7 +113,9 @@ public class AdministratorMainControler {
         if (book != null) {
             baza.removeBook(book);
 
-            knjige.remove(book);
+            knjige.clear();
+            knjige.addAll(baza.books());
+
             tableViewKnjige.refresh();
         }
 
@@ -121,6 +124,8 @@ public class AdministratorMainControler {
     public void actionIzmijeniKnjigu (ActionEvent actionEvent) {
 
         Book b = tableViewKnjige.getSelectionModel().getSelectedItem();
+
+        if (b == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
@@ -134,14 +139,17 @@ public class AdministratorMainControler {
             stage.setResizable(false);
             stage.show();
 
-            /*stage.setOnHiding(event -> {
-                Book b = bookController.getBook();
-                if (b != null) {
-                    baza.addBook(b);
-                    knjige.add(b);
+            stage.setOnHiding(event -> {
+                Book book = bookController.getBook();
+                if (book != null) {
+
+                    baza.editBook(book);
+                    knjige.clear();
+                    knjige.addAll(baza.books());
                     tableViewKnjige.refresh();
+                    
                 }
-            });*/
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -154,8 +162,43 @@ public class AdministratorMainControler {
         User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
         if(user != null) {
             baza.removeUser(user);
-            korisnici.remove(user);
+
+            korisnici.clear();
+            korisnici.addAll(baza.users());
+
             tableViewKorisnici.refresh();
+        }
+
+    }
+
+    public void actionUzmiKnjigu(ActionEvent actionEvent) {
+
+        User u = tableViewKorisnici.getSelectionModel().getSelectedItem();
+
+        if (u == null) return;
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentbook.fxml"));
+            RentBookControler rentBookController = new RentBookControler(baza.books(), u);
+            loader.setController(rentBookController);
+            root = loader.load();
+            stage.setTitle("Iznajmljivanje knjige za korisnika " + u.getUsername());
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            stage.setOnHiding(event -> {
+                Renting renting = rentBookController.getRenting();
+                if (renting != null) {
+                    baza.addRent(renting);
+
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

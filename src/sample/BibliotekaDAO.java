@@ -14,7 +14,7 @@ public class BibliotekaDAO {
     private static BibliotekaDAO instance;
     private Connection connection;
     private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery,
-    restBooksQuery, removeBookQuery, removeUserQuery;
+    restBooksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery;
 
     private BibliotekaDAO(){
 
@@ -45,11 +45,13 @@ public class BibliotekaDAO {
             nextIdRentQuery = connection.prepareStatement("SELECT max(id) + 1 FROM rentings");
             getRentingsQuery = connection.prepareStatement("select b.naziv, r.end from books b, users u, rentings r where r.renter = ? and r.book = b.id");
             addBookQuery = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)");
+            addRentQuery = connection.prepareStatement("INSERT INTO rentings VALUES (?, ?, ?, ?, ?)");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
             restBooksQuery = connection.prepareStatement("select b.id, b.naziv, b.autor, b.zanr, b.broj_stranica, b.broj_knjiga - count(r.book) from books b, rentings r where r.book = b.id group by b.id;");
             removeBookQuery = connection.prepareStatement("DELETE FROM books WHERE id = ?");
             removeUserQuery = connection.prepareStatement("DELETE FROM users WHERE username = ?");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
+            editBookQuery = connection.prepareStatement("UPDATE books SET naziv = ?, autor = ?, zanr = ?, broj_stranica = ?, broj_knjiga = ? WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -355,6 +357,46 @@ public class BibliotekaDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void editBook (Book book) {
+        try {
+            editBookQuery.setString(1, book.getName());
+            editBookQuery.setString(2, book.getAuthor());
+            editBookQuery.setString(3, book.getGenre());
+            editBookQuery.setInt(4, book.getBrojStranica());
+            editBookQuery.setInt(5, book.getBrojKnjiga());
+            editBookQuery.setInt(6, book.getId());
+
+            editBookQuery.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addRent (Renting r) {
+
+        try {
+
+        ResultSet rs = nextIdRentQuery.executeQuery();
+        int id = 1;
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+
+        addRentQuery.setInt(1, id);
+        addRentQuery.setString(2, r.getIznajmljivac().getUsername());
+        addRentQuery.setInt(3, r.getKnjiga().getId());
+        addRentQuery.setString(4, r.getPocetak().toString());
+        addRentQuery.setString(5, r.getKraj().toString());
+
+        addRentQuery.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
 
