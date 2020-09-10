@@ -5,16 +5,19 @@ import javafx.scene.control.Alert;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery,
-    restBooksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery;
 
     private BibliotekaDAO(){
 
@@ -41,17 +44,20 @@ public class BibliotekaDAO {
             findUserQuery = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
             adminsQuery = connection.prepareStatement("SELECT * FROM admins");
             usersQuery = connection.prepareStatement("SELECT * FROM users");
-            nextIdBookQuery = connection.prepareStatement("SELECT max(id) + 1 FROM books");
-            nextIdRentQuery = connection.prepareStatement("SELECT max(id) + 1 FROM rentings");
+            nextIdBookQuery = connection.prepareStatement("SELECT max(id) FROM books");
+            nextIdRentQuery = connection.prepareStatement("SELECT max(id) FROM rentings");
             getRentingsQuery = connection.prepareStatement("select b.naziv, r.end from books b, users u, rentings r where r.renter = ? and r.book = b.id");
             addBookQuery = connection.prepareStatement("INSERT INTO books VALUES (?, ?, ?, ?, ?, ?)");
             addRentQuery = connection.prepareStatement("INSERT INTO rentings VALUES (?, ?, ?, ?, ?)");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
-            restBooksQuery = connection.prepareStatement("select b.id, b.naziv, b.autor, b.zanr, b.broj_stranica, b.broj_knjiga - count(r.book) from books b, rentings r where r.book = b.id group by b.id;");
             removeBookQuery = connection.prepareStatement("DELETE FROM books WHERE id = ?");
             removeUserQuery = connection.prepareStatement("DELETE FROM users WHERE username = ?");
             booksQuery = connection.prepareStatement("SELECT * FROM books");
             editBookQuery = connection.prepareStatement("UPDATE books SET naziv = ?, autor = ?, zanr = ?, broj_stranica = ?, broj_knjiga = ? WHERE id = ?");
+            useBookQuery = connection.prepareStatement("SELECT count(book) FROM rentings WHERE book = ?");
+            usersRentingsQuery = connection.prepareStatement("SELECT * FROM rentings WHERE renter = ?");
+            findUserQuery = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+            findBookQuery = connection.prepareStatement("SELECT * FROM books WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -225,6 +231,35 @@ public class BibliotekaDAO {
         return null;
     }
 
+    public User findUser (String username) {
+
+        try {
+            findUserQuery.setString(1, username);
+            ResultSet rs = findUserQuery.executeQuery();
+            return getUserFromResultSet(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return new User();
+
+
+    }
+
+    public Book findBook (int id) {
+
+        try {
+            findBookQuery.setInt(1, id);
+            ResultSet rs = findBookQuery.executeQuery();
+            return getBookFromResultSet(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return new Book();
+
+    }
+
     public ArrayList<Administrator> admins(){
 
         ArrayList<Administrator> admins = new ArrayList<>();
@@ -293,7 +328,7 @@ public class BibliotekaDAO {
             ResultSet rs = nextIdBookQuery.executeQuery();
             int id = 1;
             if (rs.next()) {
-                id = rs.getInt(1);
+                id = rs.getInt(1) + 1;
             }
 
             addBookQuery.setInt(1, id);
@@ -324,21 +359,12 @@ public class BibliotekaDAO {
         return knjige;
     }
 
-    public ArrayList<Book> getRestBooks(){
+    public List<Book> getRestBooks() {
 
-        ArrayList<Book> preostaleKnjige = new ArrayList<>();
+        ArrayList<Book> preostaleKnjige = new ArrayList<>(books());
 
-        try {
-            ResultSet rs = restBooksQuery.executeQuery();
+        return preostaleKnjige.stream().map(book -> book.setBrojKnjiga(book.getBrojKnjiga() - useBook(book.getId()))).collect(Collectors.toList());
 
-            while(rs.next()){
-                preostaleKnjige.add(getBookFromResultSet(rs));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return preostaleKnjige;
     }
 
     public void removeBook (Book book) {
@@ -382,14 +408,17 @@ public class BibliotekaDAO {
         ResultSet rs = nextIdRentQuery.executeQuery();
         int id = 1;
         if (rs.next()) {
-            id = rs.getInt(1);
+            id = rs.getInt(1) + 1;
         }
+
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
 
         addRentQuery.setInt(1, id);
         addRentQuery.setString(2, r.getIznajmljivac().getUsername());
         addRentQuery.setInt(3, r.getKnjiga().getId());
-        addRentQuery.setString(4, r.getPocetak().toString());
-        addRentQuery.setString(5, r.getKraj().toString());
+        addRentQuery.setString(4, r.getPocetak().format(formater));
+        addRentQuery.setString(5, r.getKraj().format(formater));
 
         addRentQuery.executeUpdate();
 
@@ -399,6 +428,61 @@ public class BibliotekaDAO {
 
     }
 
+    //TODO provjeriti ovu funkciju
+    public int useBook (int id) {
 
+        int i = 0;
+
+        try {
+            useBookQuery.setInt(1, id);
+            ResultSet rs = useBookQuery.executeQuery();
+            if(rs.next()) i = rs.getInt(1);
+            return i;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return i;
+
+
+    }
+
+    public Renting getRentFromResultSet (ResultSet rs) throws SQLException {
+        return new Renting(rs.getInt(1), findUser(rs.getString(2)), getLDTFromString(rs.getString(4)), getLDTFromString(rs.getString(5)), findBook(rs.getInt(3)));
+    }
+
+    public ArrayList<Renting> usersRentings (User user) {
+
+        ArrayList<Renting> rentings = new ArrayList<>();
+
+        try {
+            usersRentingsQuery.setString(1, user.getUsername());
+            ResultSet rs = usersRentingsQuery.executeQuery();
+
+            while(rs.next()){
+                rentings.add(getRentFromResultSet(rs));
+            }
+
+            return rentings;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return rentings;
+
+    }
+
+    public LocalDateTime getLDTFromString (String string) {
+
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
+        LocalDateTime ldt = LocalDateTime.parse(string, formater);
+
+        return ldt;
+
+
+    }
 
 }

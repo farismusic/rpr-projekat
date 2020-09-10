@@ -34,7 +34,7 @@ public class AdministratorMainControler {
     public AdministratorMainControler(Administrator admin) {
         this.admin = admin;
         baza = BibliotekaDAO.getInstance();
-        knjige = FXCollections.observableArrayList(baza.books());
+        knjige = FXCollections.observableArrayList(baza.getRestBooks());
         korisnici = FXCollections.observableArrayList(baza.users());
     }
 
@@ -193,6 +193,9 @@ public class AdministratorMainControler {
                 Renting renting = rentBookController.getRenting();
                 if (renting != null) {
                     baza.addRent(renting);
+                    knjige.clear();
+                    knjige.addAll(baza.getRestBooks());
+                    tableViewKnjige.refresh();
 
                 }
             });
@@ -200,6 +203,40 @@ public class AdministratorMainControler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void actionVratiKnjigu (ActionEvent actionEvent) {
+
+        User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        if(user == null) return;
+
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usersRentings.fxml"));
+            UsersRentingsController usersRentingsController = new UsersRentingsController(baza.usersRentings(user));
+            loader.setController(usersRentingsController);
+            root = loader.load();
+            stage.setTitle("Iznajmljivanja korisnika " + user.getUsername());
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
+
+            /*stage.setOnHiding(event -> {
+                Book b = bookController.getBook();
+                if (b != null) {
+                    baza.addBook(b);
+                    knjige.clear();
+                    knjige.addAll(baza.books());
+                    tableViewKnjige.refresh();
+                }
+            });*/
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
