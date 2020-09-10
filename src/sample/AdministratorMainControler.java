@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -110,6 +111,18 @@ public class AdministratorMainControler {
     public void actionIzbrisiKnjigu (ActionEvent actionevent) {
 
         Book book = tableViewKnjige.getSelectionModel().getSelectedItem();
+        if (book == null) return;
+
+        if (baza.useBook(book.getId()) != 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Greška");
+            alert.setHeaderText("Knjigu " + "\" " + book.getName() + " \"" + " se ne može izbrisati");
+            alert.setContentText("Knjiga " + "\" " + book.getName() + " \"" + " nije vraćena od svih korisnika");
+            alert.setResizable(true);
+            alert.show();
+            return;
+        }
+
         if (book != null) {
             baza.removeBook(book);
 
@@ -160,6 +173,18 @@ public class AdministratorMainControler {
     public void actionIzbrisiKorisnika (ActionEvent actionEvent) {
 
         User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        if(user == null) return;
+
+        if (baza.usersRentings(user).size() != 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Greška");
+            alert.setHeaderText("Korisnika " + user.getUsername() + " se ne može izbrisati");
+            alert.setContentText("Korisnik " + user.getUsername() + " nije izmirio svoje obaveze prema biblioteci");
+            alert.setResizable(true);
+            alert.show();
+            return;
+        }
+
         if(user != null) {
             baza.removeUser(user);
 
@@ -227,6 +252,9 @@ public class AdministratorMainControler {
                 Renting r = usersRentingsController.getRenting();
                 if (r != null) {
                     baza.removeRent(r);
+                    knjige.clear();
+                    knjige.addAll(baza.getRestBooks());
+                    tableViewKnjige.refresh();
                 }
             });
 
