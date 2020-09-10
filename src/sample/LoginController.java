@@ -26,15 +26,26 @@ public class LoginController {
     }
 
     public void otvoriRegistraciju(ActionEvent actionEvent) {
+        Stage stage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
-            Stage primaryStage = new Stage();
-            primaryStage.setTitle("Register");
-            primaryStage.setScene(new Scene(root, 500, 300));
-            primaryStage.setResizable(false);
-            primaryStage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+            RegisterController registerController = new RegisterController(false);
+            loader.setController(registerController);
+            root = loader.load();
+            stage.setTitle("Dodaj korisnika");
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setResizable(false);
+            stage.show();
 
+            /*stage.setOnHiding(event -> {
+                Administrator a = registerController.getAdmin();
+                if (a != null) {
+                    admini.clear();
+                    admini.addAll(baza.admins());
+                    tableViewAdmini.refresh();
+                }
+            });*/
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +78,27 @@ public class LoginController {
         person.setPassword(fieldPassword.getText());
         Person p = baza.find(person);
 
-        if (p == null) {
+        if(fieldUsername.getText().trim().equals("root") && fieldPassword.getText().trim().equals("%&/123RooT123()=")){
+
+            closeWindow();
+
+            Stage stage = new Stage();
+            Parent root = null;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/root.fxml"));
+                RootController rootController = new RootController();
+                loader.setController(rootController);
+                root = loader.load();
+                stage.setTitle("root");
+                stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stage.setResizable(false);
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }else if (p == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška");
             alert.setHeaderText("Korisnik ne postoji");

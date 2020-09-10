@@ -19,10 +19,14 @@ public class RegisterController {
     public TextField fieldName;
     private BibliotekaDAO baza;
     private User user;
+    private Administrator admin;
+    private boolean tip = false;
 
-    public RegisterController() {
+    public RegisterController(boolean jeLiAdmin) {
         baza = BibliotekaDAO.getInstance();
         user = new User();
+        admin = new Administrator();
+        tip = jeLiAdmin;
     }
 
     public void registruj(ActionEvent actionEvent) {
@@ -91,21 +95,39 @@ public class RegisterController {
 
         if(!sveOk) return;
 
-        user.setUsername(fieldUsername.getText());
-        user.setName(fieldName.getText());
-        user.setLastName(fieldLastName.getText());
-        user.setEmail( fieldEmail.getText());
-        user.setPassword(fieldPassword.getText());
+        if (!tip) {
+            user.setUsername(fieldUsername.getText());
+            user.setName(fieldName.getText());
+            user.setLastName(fieldLastName.getText());
+            user.setEmail(fieldEmail.getText());
+            user.setPassword(fieldPassword.getText());
+        } else {
+            admin.setUsername(fieldUsername.getText());
+            admin.setName(fieldName.getText());
+            admin.setLastName(fieldLastName.getText());
+            admin.setEmail(fieldEmail.getText());
+            admin.setPassword(fieldPassword.getText());
+        }
 
 
-        if(baza.addUser(user)) {
+        if(!tip && baza.addUser(user)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Uspješna registracija");
-            alert.setHeaderText("Uspješno ste kreirali profil");
+            alert.setHeaderText("Uspješno ste kreirali korisnički profil");
             alert.setContentText("Prijavite se na vaš profil");
             alert.setResizable(true);
             alert.show();
             closeWindow();
+        } else if (tip){
+            baza.addAdmin(admin);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Uspješna registracija");
+            alert.setHeaderText("Uspješno ste kreirali admin profil");
+            alert.setContentText("Admin se može ulogovati na svoj profil");
+            alert.setResizable(true);
+            alert.show();
+            closeWindow();
+
         }
 
     }
@@ -143,5 +165,14 @@ public class RegisterController {
             if (!imaLiSlovo) return false;
         }
         return true;
+    }
+
+    public Administrator getAdmin() {
+        return admin;
+    }
+
+    public RegisterController setAdmin(Administrator admin) {
+        this.admin = admin;
+        return this;
     }
 }

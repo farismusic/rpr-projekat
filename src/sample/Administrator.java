@@ -2,6 +2,7 @@ package sample;
 
 public class Administrator extends Person{
 
+
     public Administrator() {
     }
 

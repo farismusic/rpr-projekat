@@ -18,7 +18,8 @@ public class BibliotekaDAO {
     private static BibliotekaDAO instance;
     private Connection connection;
     private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery,
-            addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery, removeRentQuery;
+            addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery, removeRentQuery,
+            removeAdminQuery;
 
     private BibliotekaDAO(){
 
@@ -60,6 +61,7 @@ public class BibliotekaDAO {
             findUserQuery = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
             findBookQuery = connection.prepareStatement("SELECT * FROM books WHERE id = ?");
             removeRentQuery = connection.prepareStatement("DELETE FROM rentings WHERE id = ?");
+            removeAdminQuery = connection.prepareStatement("DELETE FROM admins WHERE username = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,7 +120,7 @@ public class BibliotekaDAO {
 
 
         for (Administrator a : administrators){
-            if(a.getUsername().equals(user.getUsername())){
+            if(a.getUsername().equals(user.getUsername()) || user.getUsername().equalsIgnoreCase("root")){
                 imaLi = true;
             }
         }
@@ -155,7 +157,7 @@ public class BibliotekaDAO {
 
 
         for (User a : users){
-            if(a.getUsername().equals(administrator.getUsername())){
+            if(a.getUsername().equals(administrator.getUsername()) || administrator.getUsername().equalsIgnoreCase("root")){
                 imaLi = true;
             }
         }
@@ -430,7 +432,7 @@ public class BibliotekaDAO {
 
     }
 
-    //TODO provjeriti ovu funkciju
+
     public int useBook (int id) {
 
         int i = 0;
@@ -495,6 +497,18 @@ public class BibliotekaDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+    }
+
+    public void removeAdmin (Administrator administrator) {
+
+        try {
+            removeAdminQuery.setString(1, administrator.getUsername());
+            removeAdminQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
 
     }
 
