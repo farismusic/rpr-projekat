@@ -45,7 +45,7 @@
         <buttons>
             <Button layoutX="512.0" layoutY="18.0" mnemonicParsing="false" onAction="#actionIzbrisiKorisnika" text="Izbriši korisnika" />
             <Button layoutX="443.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionUzmiKnjigu" text="Uzmi knjigu" />
-            <Button layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionVratiKnjigu" text="Vrati knjigu" />
+            <Button layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionVratiKnjigu" text="Dignute knjige" />
         </buttons>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

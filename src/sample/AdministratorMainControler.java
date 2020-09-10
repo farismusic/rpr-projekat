@@ -223,15 +223,12 @@ public class AdministratorMainControler {
             stage.setResizable(false);
             stage.show();
 
-            /*stage.setOnHiding(event -> {
-                Book b = bookController.getBook();
-                if (b != null) {
-                    baza.addBook(b);
-                    knjige.clear();
-                    knjige.addAll(baza.books());
-                    tableViewKnjige.refresh();
+            stage.setOnHiding(event -> {
+                Renting r = usersRentingsController.getRenting();
+                if (r != null) {
+                    baza.removeRent(r);
                 }
-            });*/
+            });
 
         } catch (IOException e) {
             e.printStackTrace();

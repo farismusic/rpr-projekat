@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="U formi za iznajmljivanje knjige u padajućoj listi su knjige sortirane po abecednom poretku">
-      <change afterPath="$PROJECT_DIR$/resources/fxml/usersRentings.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/UsersRentingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baza.db" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/fxml/adminMain.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/fxml/adminMain.fxml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Dodana mogućnost iznajmljivanja knjige, prikaz iznajmljenih knjiga za svakog korisnika, nemogućnost dizanja knjige ukoliko ta knjiga trenutno nije dostupna. Prikaz datuma formatiran.">
       <change beforePath="$PROJECT_DIR$/src/sample/AdministratorMainControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/AdministratorMainControler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/RentBookControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/RentBookControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/UsersRentingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/UsersRentingsController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +244,7 @@
       <workItem from="1598361003054" duration="533000" />
       <workItem from="1599644844428" duration="826000" />
       <workItem from="1599657003309" duration="11680000" />
-      <workItem from="1599724941529" duration="20299000" />
+      <workItem from="1599724941529" duration="21741000" />
     </task>
     <task id="LOCAL-00001" summary="Kreiran GUI za Login i Registraciju.">
       <created>1582066768646</created>
@@ -426,7 +421,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599733738052</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Dodana mogućnost iznajmljivanja knjige, prikaz iznajmljenih knjiga za svakog korisnika, nemogućnost dizanja knjige ukoliko ta knjiga trenutno nije dostupna. Prikaz datuma formatiran.">
+      <created>1599751508309</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1599751508309</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -458,7 +460,8 @@
     <MESSAGE value="Urađeno dodavanje i izmjena knjige. Popraviti dio koji prikazuje broj dostupnih knjiga." />
     <MESSAGE value="Sve sa dodavanjem, brisanjem i izmjenom knjige urađeno. Kreirana forma za iznajmljivanje knjige." />
     <MESSAGE value="U formi za iznajmljivanje knjige u padajućoj listi su knjige sortirane po abecednom poretku" />
-    <option name="LAST_COMMIT_MESSAGE" value="U formi za iznajmljivanje knjige u padajućoj listi su knjige sortirane po abecednom poretku" />
+    <MESSAGE value="Dodana mogućnost iznajmljivanja knjige, prikaz iznajmljenih knjiga za svakog korisnika, nemogućnost dizanja knjige ukoliko ta knjiga trenutno nije dostupna. Prikaz datuma formatiran." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodana mogućnost iznajmljivanja knjige, prikaz iznajmljenih knjiga za svakog korisnika, nemogućnost dizanja knjige ukoliko ta knjiga trenutno nije dostupna. Prikaz datuma formatiran." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -466,34 +469,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="177" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1598361525342" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1599746820873">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1599753364270">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599746820873" />
-    <state x="587" y="87" key="CommitChangelistDialog2" timestamp="1599733732062">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1599753364270" />
+    <state x="587" y="87" key="CommitChangelistDialog2" timestamp="1599751501965">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="587" y="87" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599733732062" />
+    <state x="587" y="87" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1599751501965" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1599672370568">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599672370568" />
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1599750549739">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom" timestamp="1599751304384">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599750549739" />
-    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1599750549737">
+    <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599751304384" />
+    <state width="1876" height="277" key="GridCell.Tab.0.center" timestamp="1599751304382">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599750549737" />
-    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1599750549736">
+    <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599751304382" />
+    <state width="1876" height="277" key="GridCell.Tab.0.left" timestamp="1599751304381">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599750549736" />
-    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1599750549738">
+    <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599751304381" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right" timestamp="1599751304383">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599750549738" />
+    <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599751304383" />
     <state width="1876" height="193" key="GridCell.Tab.1.bottom" timestamp="1599684527772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

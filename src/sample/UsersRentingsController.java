@@ -8,6 +8,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,10 +17,20 @@ import java.util.ArrayList;
 public class UsersRentingsController {
 
     private ObservableList<Renting> rentings;
-    public TableView tableViewDizanja;
+    public TableView<Renting> tableViewDizanja;
     public TableColumn columnKnjiga;
     public TableColumn<Renting, LocalDateTime> columnPocetak;
     public TableColumn<Renting, LocalDateTime> columnKraj;
+    private Renting renting;
+
+    public Renting getRenting() {
+        return renting;
+    }
+
+    public UsersRentingsController setRenting(Renting renting) {
+        this.renting = renting;
+        return this;
+    }
 
     public UsersRentingsController(ArrayList<Renting> rentings) {
         this.rentings = FXCollections.observableArrayList(rentings);
@@ -72,5 +83,15 @@ public class UsersRentingsController {
 
     public void actionVratiKnjigu (ActionEvent actionEvent) {
 
+        renting = tableViewDizanja.getSelectionModel().getSelectedItem();
+        if(renting == null) return;
+
+        closeWindow();
+
+    }
+
+    private void closeWindow(){
+        Stage stage = (Stage) tableViewDizanja.getScene().getWindow();
+        stage.close();
     }
 }

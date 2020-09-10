@@ -17,7 +17,8 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
-    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery, addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery;
+    private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery,
+            addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery, removeRentQuery;
 
     private BibliotekaDAO(){
 
@@ -58,6 +59,7 @@ public class BibliotekaDAO {
             usersRentingsQuery = connection.prepareStatement("SELECT * FROM rentings WHERE renter = ?");
             findUserQuery = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
             findBookQuery = connection.prepareStatement("SELECT * FROM books WHERE id = ?");
+            removeRentQuery = connection.prepareStatement("DELETE FROM rentings WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -482,6 +484,17 @@ public class BibliotekaDAO {
 
         return ldt;
 
+
+    }
+
+    public void removeRent (Renting renting) {
+
+        try {
+            removeRentQuery.setInt(1, renting.getId());
+            removeRentQuery.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
