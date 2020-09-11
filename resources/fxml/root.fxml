@@ -14,17 +14,17 @@
     <RowConstraints maxHeight="53.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="tableViewAdmini" prefHeight="170.0" prefWidth="319.0" GridPane.rowIndex="1">
+      <TableView fx:id="tableViewAdmins" prefHeight="170.0" prefWidth="319.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn fx:id="columnIme" prefWidth="84.0" text="Ime" />
-          <TableColumn fx:id="columnPrezime" prefWidth="102.0" text="Prezime" />
+          <TableColumn fx:id="columnName" prefWidth="84.0" text="Ime" />
+          <TableColumn fx:id="columnLastName" prefWidth="102.0" text="Prezime" />
             <TableColumn fx:id="columnUsername" prefWidth="131.0" text="Username" />
         </columns>
       </TableView>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#actionDodajAdmina" text="Dodaj admina" />
-            <Button layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#actionIzbrisiAdmina" text="Izbriši admina" />
+          <Button mnemonicParsing="false" onAction="#actionAddAdmin" text="Dodaj admina" />
+            <Button layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#actionRemoveAdmin" text="Izbriši admina" />
         </buttons>
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -34,7 +34,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Profil">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#actionOdjaviteSe" text="Odjavite se" />
+              <MenuItem mnemonicParsing="false" onAction="#actionLogOut" text="Odjavite se" />
             </items>
           </Menu>
         </menus>

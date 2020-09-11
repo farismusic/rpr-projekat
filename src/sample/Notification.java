@@ -14,6 +14,6 @@ public class Notification {
     @Override
     public String toString() {
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        return "Rok za vraćanje knjige: " + "\" " + renting.getKnjiga().getName() + " \"" + "je istekao " + renting.getKraj().format(formater);
+        return "Rok za vraćanje knjige: " + "\" " + renting.getBook().getName() + " \"" + "je istekao " + renting.getDateEnd().format(formater);
     }
 }

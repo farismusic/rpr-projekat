@@ -46,8 +46,8 @@ public class UserMainController {
         tableView.setItems(iznajmljeneKnjige);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("knjiga"));
-        columnRok.setCellValueFactory(new PropertyValueFactory<>("kraj"));
+        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("book"));
+        columnRok.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
         columnRok.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
             return new TableCell<Renting, LocalDateTime>() {
@@ -112,7 +112,7 @@ public class UserMainController {
 
         for(Renting r : iznajmljeneKnjige) {
 
-            if (r.getKraj().isBefore(now)) n.add(new Notification(r));
+            if (r.getDateEnd().isBefore(now)) n.add(new Notification(r));
 
         }
 

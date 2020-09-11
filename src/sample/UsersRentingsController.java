@@ -45,9 +45,9 @@ public class UsersRentingsController {
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
 
-        columnKnjiga.setCellValueFactory(new PropertyValueFactory<>("knjiga"));
-        columnPocetak.setCellValueFactory(new PropertyValueFactory<>("pocetak"));
-        columnKraj.setCellValueFactory(new PropertyValueFactory<>("kraj"));
+        columnKnjiga.setCellValueFactory(new PropertyValueFactory<>("book"));
+        columnPocetak.setCellValueFactory(new PropertyValueFactory<>("dateBegin"));
+        columnKraj.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
         columnPocetak.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
             return new TableCell<Renting, LocalDateTime>() {

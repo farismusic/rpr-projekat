@@ -18,32 +18,32 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class RootController {
 
-    public TableView<Administrator> tableViewAdmini;
-    public TableColumn columnIme;
-    public TableColumn columnPrezime;
+    public TableView<Administrator> tableViewAdmins;
+    public TableColumn columnName;
+    public TableColumn columnLastName;
     public TableColumn columnUsername;
-    private BibliotekaDAO baza;
-    private ObservableList<Administrator> admini;
+    private BibliotekaDAO db;
+    private ObservableList<Administrator> admins;
 
     public RootController() {
-        baza = BibliotekaDAO.getInstance();
-        admini = FXCollections.observableArrayList(baza.admins());
+        db = BibliotekaDAO.getInstance();
+        admins = FXCollections.observableArrayList(db.admins());
     }
 
 
     @FXML
     public void initialize(){
 
-        tableViewAdmini.setItems(admini);
+        tableViewAdmins.setItems(admins);
 
-        columnIme.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnPrezime.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         columnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
 
     }
 
 
-    public void actionDodajAdmina(ActionEvent actionEvent) {
+    public void actionAddAdmin(ActionEvent actionEvent) {
 
         Stage stage = new Stage();
         Parent root = null;
@@ -60,9 +60,9 @@ public class RootController {
             stage.setOnHiding(event -> {
                 Administrator a = registerController.getAdmin();
                 if (a != null) {
-                    admini.clear();
-                    admini.addAll(baza.admins());
-                    tableViewAdmini.refresh();
+                    admins.clear();
+                    admins.addAll(db.admins());
+                    tableViewAdmins.refresh();
                 }
             });
 
@@ -73,20 +73,20 @@ public class RootController {
 
     }
 
-    public void actionIzbrisiAdmina(ActionEvent actionEvent) {
+    public void actionRemoveAdmin(ActionEvent actionEvent) {
 
-        Administrator administrator = tableViewAdmini.getSelectionModel().getSelectedItem();
+        Administrator administrator = tableViewAdmins.getSelectionModel().getSelectedItem();
         if (administrator == null) return;
 
-        baza.removeAdmin(administrator);
+        db.removeAdmin(administrator);
 
-        admini.clear();
-        admini.addAll(baza.admins());
-        tableViewAdmini.refresh();
+        admins.clear();
+        admins.addAll(db.admins());
+        tableViewAdmins.refresh();
 
     }
 
-    public void actionOdjaviteSe (ActionEvent actionEvent) {
+    public void actionLogOut(ActionEvent actionEvent) {
         closeWindow();
 
         Parent root = null;
@@ -105,7 +105,7 @@ public class RootController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) tableViewAdmini.getScene().getWindow();
+        Stage stage = (Stage) tableViewAdmins.getScene().getWindow();
         stage.close();
     }
 

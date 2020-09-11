@@ -19,42 +19,42 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class AdministratorMainControler {
 
-    public TableView<Book> tableViewKnjige;
-    public TableColumn columnNaziv;
-    public TableColumn columnBrojStranica;
-    public TableColumn columnDostupnih;
+    public TableView<Book> tableViewBooks;
+    public TableColumn columnName;
+    public TableColumn columnNumberOfPages;
+    public TableColumn columnAvailable;
 
-    public TableView<User> tableViewKorisnici;
-    public TableColumn columnKorisnickoIme;
+    public TableView<User> tableViewUsers;
+    public TableColumn columnUsername;
 
-    private BibliotekaDAO baza;
-    private ObservableList<Book> knjige;
-    private ObservableList<User> korisnici;
+    private BibliotekaDAO db;
+    private ObservableList<Book> books;
+    private ObservableList<User> users;
     private Administrator admin;
 
     public AdministratorMainControler(Administrator admin) {
         this.admin = admin;
-        baza = BibliotekaDAO.getInstance();
-        knjige = FXCollections.observableArrayList(baza.getRestBooks());
-        korisnici = FXCollections.observableArrayList(baza.users());
+        db = BibliotekaDAO.getInstance();
+        books = FXCollections.observableArrayList(db.getRestBooks());
+        users = FXCollections.observableArrayList(db.users());
     }
 
     @FXML
     public void initialize() {
 
-        tableViewKnjige.setItems(knjige);
+        tableViewBooks.setItems(books);
 
-        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnBrojStranica.setCellValueFactory(new PropertyValueFactory<>("brojStranica"));
-        columnDostupnih.setCellValueFactory(new PropertyValueFactory<>("brojKnjiga"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnNumberOfPages.setCellValueFactory(new PropertyValueFactory<>("numberOfPages"));
+        columnAvailable.setCellValueFactory(new PropertyValueFactory<>("numberOfBooks"));
 
-        tableViewKorisnici.setItems(korisnici);
-        columnKorisnickoIme.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tableViewUsers.setItems(users);
+        columnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
 
     }
 
 
-    public void odjaviAdmina (ActionEvent actionEvent) {
+    public void logOutAdmin(ActionEvent actionEvent) {
         closeWindow();
 
         Parent root = null;
@@ -73,11 +73,11 @@ public class AdministratorMainControler {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) tableViewKorisnici.getScene().getWindow();
+        Stage stage = (Stage) tableViewUsers.getScene().getWindow();
         stage.close();
     }
 
-    public void actionDodajKnjigu(ActionEvent actionEvent) {
+    public void actionAddBook(ActionEvent actionEvent) {
 
 
         Stage stage = new Stage();
@@ -95,10 +95,10 @@ public class AdministratorMainControler {
             stage.setOnHiding(event -> {
                 Book b = bookController.getBook();
                 if (b != null) {
-                    baza.addBook(b);
-                    knjige.clear();
-                    knjige.addAll(baza.books());
-                    tableViewKnjige.refresh();
+                    db.addBook(b);
+                    books.clear();
+                    books.addAll(db.books());
+                    tableViewBooks.refresh();
                 }
             });
 
@@ -108,12 +108,12 @@ public class AdministratorMainControler {
 
     }
 
-    public void actionIzbrisiKnjigu (ActionEvent actionevent) {
+    public void actionRemoveBook(ActionEvent actionevent) {
 
-        Book book = tableViewKnjige.getSelectionModel().getSelectedItem();
+        Book book = tableViewBooks.getSelectionModel().getSelectedItem();
         if (book == null) return;
 
-        if (baza.useBook(book.getId()) != 0){
+        if (db.useBook(book.getId()) != 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška");
             alert.setHeaderText("Knjigu " + "\" " + book.getName() + " \"" + " se ne može izbrisati");
@@ -124,19 +124,19 @@ public class AdministratorMainControler {
         }
 
         if (book != null) {
-            baza.removeBook(book);
+            db.removeBook(book);
 
-            knjige.clear();
-            knjige.addAll(baza.books());
+            books.clear();
+            books.addAll(db.books());
 
-            tableViewKnjige.refresh();
+            tableViewBooks.refresh();
         }
 
     }
 
-    public void actionIzmijeniKnjigu (ActionEvent actionEvent) {
+    public void actionEditBook(ActionEvent actionEvent) {
 
-        Book b = tableViewKnjige.getSelectionModel().getSelectedItem();
+        Book b = tableViewBooks.getSelectionModel().getSelectedItem();
 
         if (b == null) return;
 
@@ -156,10 +156,10 @@ public class AdministratorMainControler {
                 Book book = bookController.getBook();
                 if (book != null) {
 
-                    baza.editBook(book);
-                    knjige.clear();
-                    knjige.addAll(baza.books());
-                    tableViewKnjige.refresh();
+                    db.editBook(book);
+                    books.clear();
+                    books.addAll(db.books());
+                    tableViewBooks.refresh();
                     
                 }
             });
@@ -170,12 +170,12 @@ public class AdministratorMainControler {
 
     }
 
-    public void actionIzbrisiKorisnika (ActionEvent actionEvent) {
+    public void actionRemoveUser(ActionEvent actionEvent) {
 
-        User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        User user = tableViewUsers.getSelectionModel().getSelectedItem();
         if(user == null) return;
 
-        if (baza.usersRentings(user).size() != 0) {
+        if (db.usersRentings(user).size() != 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška");
             alert.setHeaderText("Korisnika " + user.getUsername() + " se ne može izbrisati");
@@ -186,27 +186,27 @@ public class AdministratorMainControler {
         }
 
         if(user != null) {
-            baza.removeUser(user);
+            db.removeUser(user);
 
-            korisnici.clear();
-            korisnici.addAll(baza.users());
+            users.clear();
+            users.addAll(db.users());
 
-            tableViewKorisnici.refresh();
+            tableViewUsers.refresh();
         }
 
     }
 
-    public void actionUzmiKnjigu(ActionEvent actionEvent) {
+    public void actionGetBook(ActionEvent actionEvent) {
 
-        User u = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        User u = tableViewUsers.getSelectionModel().getSelectedItem();
 
         if (u == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentbook.fxml"));
-            RentBookControler rentBookController = new RentBookControler(baza.books(), u);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentBook.fxml"));
+            RentBookControler rentBookController = new RentBookControler(db.books(), u);
             loader.setController(rentBookController);
             root = loader.load();
             stage.setTitle("Iznajmljivanje knjige za korisnika " + u.getUsername());
@@ -217,10 +217,10 @@ public class AdministratorMainControler {
             stage.setOnHiding(event -> {
                 Renting renting = rentBookController.getRenting();
                 if (renting != null) {
-                    baza.addRent(renting);
-                    knjige.clear();
-                    knjige.addAll(baza.getRestBooks());
-                    tableViewKnjige.refresh();
+                    db.addRent(renting);
+                    books.clear();
+                    books.addAll(db.getRestBooks());
+                    tableViewBooks.refresh();
 
                 }
             });
@@ -231,16 +231,16 @@ public class AdministratorMainControler {
 
     }
 
-    public void actionVratiKnjigu (ActionEvent actionEvent) {
+    public void actionGiveBackBook(ActionEvent actionEvent) {
 
-        User user = tableViewKorisnici.getSelectionModel().getSelectedItem();
+        User user = tableViewUsers.getSelectionModel().getSelectedItem();
         if(user == null) return;
 
         Stage stage = new Stage();
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usersRentings.fxml"));
-            UsersRentingsController usersRentingsController = new UsersRentingsController(baza.usersRentings(user));
+            UsersRentingsController usersRentingsController = new UsersRentingsController(db.usersRentings(user));
             loader.setController(usersRentingsController);
             root = loader.load();
             stage.setTitle("Iznajmljivanja korisnika " + user.getUsername());
@@ -251,10 +251,10 @@ public class AdministratorMainControler {
             stage.setOnHiding(event -> {
                 Renting r = usersRentingsController.getRenting();
                 if (r != null) {
-                    baza.removeRent(r);
-                    knjige.clear();
-                    knjige.addAll(baza.getRestBooks());
-                    tableViewKnjige.refresh();
+                    db.removeRent(r);
+                    books.clear();
+                    books.addAll(db.getRestBooks());
+                    tableViewBooks.refresh();
                 }
             });
 

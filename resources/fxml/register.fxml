@@ -71,7 +71,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button fx:id="btnRegister" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#registruj" text="Register" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+      <Button fx:id="btnRegister" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#register" text="Register" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>

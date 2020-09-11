@@ -17,11 +17,11 @@ public class LoginController {
     public TextField fieldUsername;
     public PasswordField fieldPassword;
     public Button btnLogin;
-    private BibliotekaDAO baza;
+    private BibliotekaDAO db;
     private Person person;
 
     public LoginController() {
-        baza = BibliotekaDAO.getInstance();
+        db = BibliotekaDAO.getInstance();
         person = new Person();
     }
 
@@ -76,7 +76,7 @@ public class LoginController {
 
         person.setUsername(fieldUsername.getText());
         person.setPassword(fieldPassword.getText());
-        Person p = baza.find(person);
+        Person p = db.find(person);
 
         if(fieldUsername.getText().trim().equals("root") && fieldPassword.getText().trim().equals("%&/123RooT123()=")){
 

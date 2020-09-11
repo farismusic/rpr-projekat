@@ -17,26 +17,26 @@ public class RegisterController {
     public TextField fieldUsername;
     public TextField fieldLastName;
     public TextField fieldName;
-    private BibliotekaDAO baza;
+    private BibliotekaDAO db;
     private User user;
     private Administrator admin;
-    private boolean tip = false;
+    private boolean type = false;
 
-    public RegisterController(boolean jeLiAdmin) {
-        baza = BibliotekaDAO.getInstance();
+    public RegisterController(boolean isAdmin) {
+        db = BibliotekaDAO.getInstance();
         user = new User();
         admin = new Administrator();
-        tip = jeLiAdmin;
+        type = isAdmin;
     }
 
-    public void registruj(ActionEvent actionEvent) {
+    public void register(ActionEvent actionEvent) {
 
-        boolean sveOk = true;
+        boolean allOk = true;
 
         if (fieldUsername.getText().trim().isEmpty() || fieldUsername.getText().length() <= 5) {
             fieldUsername.getStyleClass().removeAll("poljeIspravno");
             fieldUsername.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldUsername.getStyleClass().removeAll("poljeNijeIspravno");
             fieldUsername.getStyleClass().add("poljeIspravno");
@@ -45,7 +45,7 @@ public class RegisterController {
         if (fieldName.getText().trim().isEmpty()) {
             fieldName.getStyleClass().removeAll("poljeIspravno");
             fieldName.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldName.getStyleClass().removeAll("poljeNijeIspravno");
             fieldName.getStyleClass().add("poljeIspravno");
@@ -54,16 +54,16 @@ public class RegisterController {
         if (fieldLastName.getText().trim().isEmpty()) {
             fieldLastName.getStyleClass().removeAll("poljeIspravno");
             fieldLastName.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldLastName.getStyleClass().removeAll("poljeNijeIspravno");
             fieldLastName.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldEmail.getText().trim().isEmpty() || !validanEmail(fieldEmail.getText())) {
+        if (fieldEmail.getText().trim().isEmpty() || !isValidEmail(fieldEmail.getText())) {
             fieldEmail.getStyleClass().removeAll("poljeIspravno");
             fieldEmail.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldEmail.getStyleClass().removeAll("poljeNijeIspravno");
             fieldEmail.getStyleClass().add("poljeIspravno");
@@ -72,7 +72,7 @@ public class RegisterController {
         if (fieldPassword.getText().trim().isEmpty() || fieldPassword.getText().length() < 8 || fieldPassword.getText().length() > 16) {
             fieldPassword.getStyleClass().removeAll("poljeIspravno");
             fieldPassword.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldPassword.getStyleClass().removeAll("poljeNijeIspravno");
             fieldPassword.getStyleClass().add("poljeIspravno");
@@ -81,7 +81,7 @@ public class RegisterController {
         if (fieldPasswordRepeat.getText().trim().isEmpty() || fieldPassword.getText().length() < 8 || fieldPassword.getText().length() > 16) {
             fieldPasswordRepeat.getStyleClass().removeAll("poljeIspravno");
             fieldPasswordRepeat.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         } else {
             fieldPasswordRepeat.getStyleClass().removeAll("poljeNijeIspravno");
             fieldPasswordRepeat.getStyleClass().add("poljeIspravno");
@@ -90,12 +90,12 @@ public class RegisterController {
         if(!fieldPassword.getText().equals(fieldPasswordRepeat.getText())){
             fieldPasswordRepeat.getStyleClass().removeAll("poljeIspravno");
             fieldPasswordRepeat.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+            allOk = false;
         }
 
-        if(!sveOk) return;
+        if(!allOk) return;
 
-        if (!tip) {
+        if (!type) {
             user.setUsername(fieldUsername.getText());
             user.setName(fieldName.getText());
             user.setLastName(fieldLastName.getText());
@@ -110,7 +110,7 @@ public class RegisterController {
         }
 
 
-        if(!tip && baza.addUser(user)) {
+        if(!type && db.addUser(user)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Uspješna registracija");
             alert.setHeaderText("Uspješno ste kreirali korisnički profil");
@@ -118,8 +118,8 @@ public class RegisterController {
             alert.setResizable(true);
             alert.show();
             closeWindow();
-        } else if (tip){
-            baza.addAdmin(admin);
+        } else if (type){
+            db.addAdmin(admin);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Uspješna registracija");
             alert.setHeaderText("Uspješno ste kreirali admin profil");
@@ -141,28 +141,28 @@ public class RegisterController {
         stage.close();
     }
 
-    protected boolean validanEmail(String s) {
+    protected boolean isValidEmail(String s) {
         if (!s.contains("@")) {
             return false;
         } else {
             String[] email = s.split("@");
             if (email.length < 2) return false;
-            boolean imaLiSlovo = false;
+            boolean isThereLetter = false;
             for (char c : email[0].toCharArray()) {
                 if (Character.isLetter(c)) {
-                    imaLiSlovo = true;
+                    isThereLetter = true;
                     break;
                 }
             }
-            if (!imaLiSlovo) return false;
-            imaLiSlovo = false;
+            if (!isThereLetter) return false;
+            isThereLetter = false;
             for (char c : email[1].toCharArray()) {
                 if (Character.isLetter(c)) {
-                    imaLiSlovo = true;
+                    isThereLetter = true;
                     break;
                 }
             }
-            if (!imaLiSlovo) return false;
+            if (!isThereLetter) return false;
         }
         return true;
     }

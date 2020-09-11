@@ -1,23 +1,20 @@
 package sample;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class Renting {
 
     private int id;
-    private User iznajmljivac;
-    private LocalDateTime pocetak, kraj;
-    private Book knjiga;
+    private User renter;
+    private LocalDateTime dateBegin, dateEnd;
+    private Book book;
 
-    public Renting(int id, User iznajmljivac, LocalDateTime pocetak, LocalDateTime kraj, Book knjiga) {
+    public Renting(int id, User renter, LocalDateTime dateBegin, LocalDateTime dateEnd, Book book) {
         this.id = id;
-        this.iznajmljivac = iznajmljivac;
-        this.pocetak = pocetak;
-        this.kraj = kraj;
-        this.knjiga = knjiga;
+        this.renter = renter;
+        this.dateBegin = dateBegin;
+        this.dateEnd = dateEnd;
+        this.book = book;
     }
 
     public Renting() {
@@ -32,54 +29,42 @@ public class Renting {
         return this;
     }
 
-    public User getIznajmljivac() {
-        return iznajmljivac;
+    public User getRenter() {
+        return renter;
     }
 
-    public Renting setIznajmljivac(User iznajmljivac) {
-        this.iznajmljivac = iznajmljivac;
+    public Renting setRenter(User renter) {
+        this.renter = renter;
         return this;
     }
 
-    public LocalDateTime getPocetak() {
-        return pocetak;
+    public LocalDateTime getDateBegin() {
+        return dateBegin;
     }
 
-    public Renting setPocetak(LocalDateTime pocetak) {
-        this.pocetak = pocetak;
+    public Renting setDateBegin(LocalDateTime dateBegin) {
+        this.dateBegin = dateBegin;
         return this;
     }
 
-    public LocalDateTime getKraj() {
-        return kraj;
+    public LocalDateTime getDateEnd() {
+        return dateEnd;
     }
 
-    public Renting setKraj(LocalDateTime kraj) {
-        this.kraj = kraj;
+    public Renting setDateEnd(LocalDateTime dateEnd) {
+        this.dateEnd = dateEnd;
         return this;
     }
 
-    public Book getKnjiga() {
-        return knjiga;
+    public Book getBook() {
+        return book;
     }
 
-    public Renting setKnjiga(Book knjiga) {
-        this.knjiga = knjiga;
+    public Renting setBook(Book book) {
+        this.book = book;
         return this;
     }
 
-    public LocalDateTime stringToLocalDateTime(String datumVrijeme){
-        String[] niz = datumVrijeme.split(" ");
 
-        String[] dMG = niz[0].split("\\.");
-        String[] vSS = niz[1].split(":");
-        LocalDate dmg1 = LocalDate.of(Integer.parseInt(dMG[2]), Integer.parseInt(dMG[1]), Integer.parseInt(dMG[0]));
-        LocalTime vss1 = LocalTime.of(Integer.parseInt(vSS[0]), Integer.parseInt(vSS[1]), Integer.parseInt(vSS[2]));
-        return LocalDateTime.of(dmg1, vss1);
-    }
-
-    public String localDateTimeToString(LocalDateTime ldt){
-        return ldt.format(DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss"));
-    }
 
 }

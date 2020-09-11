@@ -10,7 +10,7 @@ public class BookController {
 
     private Book book;
 
-    public TextField fieldNaziv, fieldAutor, fieldZanr, fieldBrojStranica, fieldBrojKnjiga;
+    public TextField fieldName, fieldAuthor, fieldGenre, fieldNumberOfPages, fieldNumberOfBooks;
 
     public BookController(Book book) {
         this.book = book;
@@ -24,11 +24,11 @@ public class BookController {
 
         if(book != null) {
 
-            fieldNaziv.setText(book.getName());
-            fieldZanr.setText(book.getGenre());
-            fieldAutor.setText(book.getAuthor());
-            fieldBrojStranica.setText(Integer.toString(book.getBrojStranica()));
-            fieldBrojKnjiga.setText(Integer.toString(book.getBrojKnjiga()));
+            fieldName.setText(book.getName());
+            fieldGenre.setText(book.getGenre());
+            fieldAuthor.setText(book.getAuthor());
+            fieldNumberOfPages.setText(Integer.toString(book.getNumberOfPages()));
+            fieldNumberOfBooks.setText(Integer.toString(book.getNumberOfBooks()));
 
         }
 
@@ -43,78 +43,78 @@ public class BookController {
         return this;
     }
 
-    public void actionDodaj (ActionEvent actionEvent){
+    public void actionAdd(ActionEvent actionEvent){
 
-        boolean sveOk = true;
+        boolean allOk = true;
 
-        if (fieldNaziv.getText().trim().isEmpty()) {
-            fieldNaziv.getStyleClass().removeAll("poljeIspravno");
-            fieldNaziv.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+        if (fieldName.getText().trim().isEmpty()) {
+            fieldName.getStyleClass().removeAll("poljeIspravno");
+            fieldName.getStyleClass().add("poljeNijeIspravno");
+            allOk = false;
         } else {
-            fieldNaziv.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldNaziv.getStyleClass().add("poljeIspravno");
+            fieldName.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldName.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldAutor.getText().trim().isEmpty()) {
-            fieldAutor.getStyleClass().removeAll("poljeIspravno");
-            fieldAutor.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+        if (fieldAuthor.getText().trim().isEmpty()) {
+            fieldAuthor.getStyleClass().removeAll("poljeIspravno");
+            fieldAuthor.getStyleClass().add("poljeNijeIspravno");
+            allOk = false;
         } else {
-            fieldAutor.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldAutor.getStyleClass().add("poljeIspravno");
+            fieldAuthor.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldAuthor.getStyleClass().add("poljeIspravno");
         }
 
-        if (fieldZanr.getText().trim().isEmpty()) {
-            fieldZanr.getStyleClass().removeAll("poljeIspravno");
-            fieldZanr.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+        if (fieldGenre.getText().trim().isEmpty()) {
+            fieldGenre.getStyleClass().removeAll("poljeIspravno");
+            fieldGenre.getStyleClass().add("poljeNijeIspravno");
+            allOk = false;
         } else {
-            fieldZanr.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldZanr.getStyleClass().add("poljeIspravno");
+            fieldGenre.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldGenre.getStyleClass().add("poljeIspravno");
         }
 
-        int brojStranica = 1;
+        int numPag = 1;
         try {
-            brojStranica = Integer.parseInt(fieldBrojStranica.getText());
+            numPag = Integer.parseInt(fieldNumberOfPages.getText());
         } catch (NumberFormatException e) {
             // ...
         }
-        if (fieldBrojStranica.getText().trim().isEmpty() || brojStranica < 1) {
-            fieldBrojStranica.getStyleClass().removeAll("poljeIspravno");
-            fieldBrojStranica.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+        if (fieldNumberOfPages.getText().trim().isEmpty() || numPag < 1) {
+            fieldNumberOfPages.getStyleClass().removeAll("poljeIspravno");
+            fieldNumberOfPages.getStyleClass().add("poljeNijeIspravno");
+            allOk = false;
         } else {
-            fieldBrojStranica.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldBrojStranica.getStyleClass().add("poljeIspravno");
+            fieldNumberOfPages.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldNumberOfPages.getStyleClass().add("poljeIspravno");
         }
 
-        int brojKnjiga = 1;
+        int numBook = 1;
         try {
-            brojKnjiga = Integer.parseInt(fieldBrojKnjiga.getText());
+            numBook = Integer.parseInt(fieldNumberOfBooks.getText());
         } catch (NumberFormatException e) {
             // ...
         }
-        if (fieldBrojKnjiga.getText().trim().isEmpty() || brojKnjiga < 1) {
-            fieldBrojKnjiga.getStyleClass().removeAll("poljeIspravno");
-            fieldBrojKnjiga.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
+        if (fieldNumberOfBooks.getText().trim().isEmpty() || numBook < 1) {
+            fieldNumberOfBooks.getStyleClass().removeAll("poljeIspravno");
+            fieldNumberOfBooks.getStyleClass().add("poljeNijeIspravno");
+            allOk = false;
         } else {
-            fieldBrojKnjiga.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldBrojKnjiga.getStyleClass().add("poljeIspravno");
+            fieldNumberOfBooks.getStyleClass().removeAll("poljeNijeIspravno");
+            fieldNumberOfBooks.getStyleClass().add("poljeIspravno");
         }
 
-        if(!sveOk) return;
+        if(!allOk) return;
 
         if (book == null) book = new Book();
 
-        book.setName(fieldNaziv.getText().trim());
-        book.setAuthor(fieldAutor.getText().trim());
-        book.setGenre(fieldZanr.getText().trim());
-        book.setBrojStranica(Integer.parseInt(fieldBrojStranica.getText().trim()));
-        book.setBrojKnjiga(Integer.parseInt(fieldBrojKnjiga.getText().trim()));
+        book.setName(fieldName.getText().trim());
+        book.setAuthor(fieldAuthor.getText().trim());
+        book.setGenre(fieldGenre.getText().trim());
+        book.setNumberOfPages(Integer.parseInt(fieldNumberOfPages.getText().trim()));
+        book.setNumberOfBooks(Integer.parseInt(fieldNumberOfBooks.getText().trim()));
 
-        Stage stage = (Stage) fieldNaziv.getScene().getWindow();
+        Stage stage = (Stage) fieldName.getScene().getWindow();
         stage.close();
 
     }

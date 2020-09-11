@@ -31,7 +31,7 @@ public class UserBooksController {
         columnNaziv.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnAutor.setCellValueFactory(new PropertyValueFactory<>("author"));
         columnZanr.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        columnBrojStranica.setCellValueFactory(new PropertyValueFactory<>("brojStranica"));
-        columnDostupnih.setCellValueFactory(new PropertyValueFactory<>("brojKnjiga"));
+        columnBrojStranica.setCellValueFactory(new PropertyValueFactory<>("numberOfPages"));
+        columnDostupnih.setCellValueFactory(new PropertyValueFactory<>("numberOfBooks"));
     }
 }

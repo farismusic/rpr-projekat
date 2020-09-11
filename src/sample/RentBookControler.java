@@ -15,43 +15,43 @@ import java.util.TreeSet;
 
 public class RentBookControler {
 
-    private ObservableList<Book> knjige;
+    private ObservableList<Book> books;
     private Renting renting;
     private User user;
-    private BibliotekaDAO baza;
+    private BibliotekaDAO db;
 
     public ChoiceBox<Book> choiceBoxBooks;
 
-    public RentBookControler(ArrayList<Book> knjige, User user) {
+    public RentBookControler(ArrayList<Book> books, User user) {
 
-        baza = BibliotekaDAO.getInstance();
+        db = BibliotekaDAO.getInstance();
 
         Set<Book> set = new TreeSet<>();
-        set.addAll(knjige);
+        set.addAll(books);
 
-        this.knjige = FXCollections.observableArrayList(set);
+        this.books = FXCollections.observableArrayList(set);
         this.user = user;
     }
 
     @FXML
     public void initialize(){
 
-        choiceBoxBooks.setItems(knjige);
+        choiceBoxBooks.setItems(books);
 
     }
 
-    public void actionDajKnjigu (ActionEvent actionEvent) {
+    public void actionRentBook(ActionEvent actionEvent) {
 
         Book book = choiceBoxBooks.getValue();
         if (book == null) return;
 
-        if (imaLiDostupnih(book)) {
+        if (areThereAnyAvailable(book)) {
 
             renting = new Renting();
-            renting.setIznajmljivac(user);
-            renting.setKnjiga(book);
-            renting.setPocetak(LocalDateTime.now());
-            renting.setKraj(renting.getPocetak().plusDays(7));
+            renting.setRenter(user);
+            renting.setBook(book);
+            renting.setDateBegin(LocalDateTime.now());
+            renting.setDateEnd(renting.getDateBegin().plusDays(7));
 
             closeWindow();
 
@@ -78,9 +78,9 @@ public class RentBookControler {
         return this;
     }
 
-    public boolean imaLiDostupnih (Book book) {
+    public boolean areThereAnyAvailable(Book book) {
 
-        if((book.getBrojKnjiga() - baza.useBook(book.id)) == 0) return false;
+        if((book.getNumberOfBooks() - db.useBook(book.id)) == 0) return false;
         else return true;
 
     }

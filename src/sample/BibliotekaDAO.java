@@ -8,7 +8,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -114,20 +113,20 @@ public class BibliotekaDAO {
     public boolean addUser(User user){
 
         ArrayList<Administrator> administrators = new ArrayList<>();
-        boolean imaLi = false;
+        boolean isThere = false;
 
         administrators.addAll(admins());
 
 
         for (Administrator a : administrators){
             if(a.getUsername().equals(user.getUsername()) || user.getUsername().equalsIgnoreCase("root")){
-                imaLi = true;
+                isThere = true;
             }
         }
 
         try {
 
-            if(imaLi){
+            if(isThere){
                 throw new SQLException();
             }
 
@@ -151,20 +150,20 @@ public class BibliotekaDAO {
 
 
         ArrayList<User> users = new ArrayList<>();
-        boolean imaLi = false;
+        boolean isThere = false;
 
         users.addAll(users());
 
 
         for (User a : users){
             if(a.getUsername().equals(administrator.getUsername()) || administrator.getUsername().equalsIgnoreCase("root")){
-                imaLi = true;
+                isThere = true;
             }
         }
 
         try {
 
-            if(imaLi){
+            if(isThere){
                 throw new SQLException();
             }
 
@@ -307,24 +306,7 @@ public class BibliotekaDAO {
         alert.show();
     }
 
-    public HashMap<String, String> getUsersBooks(User user){
 
-        HashMap<String, String> podignuteKnjige = new HashMap<>();
-
-        try {
-            getRentingsQuery.setString(1, user.getUsername());
-            ResultSet rs = getRentingsQuery.executeQuery();
-
-            while (rs.next()){
-                //HashMap<String, String> help = new HashMap<>();
-                podignuteKnjige.put(rs.getString(1), rs.getString(2));
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return podignuteKnjige;
-    }
 
     public void addBook(Book book){
 
@@ -339,8 +321,8 @@ public class BibliotekaDAO {
             addBookQuery.setString(2, book.getName());
             addBookQuery.setString(3, book.getAuthor());
             addBookQuery.setString(4, book.getGenre());
-            addBookQuery.setInt(5, book.getBrojStranica());
-            addBookQuery.setInt(6, book.getBrojKnjiga());
+            addBookQuery.setInt(5, book.getNumberOfPages());
+            addBookQuery.setInt(6, book.getNumberOfBooks());
 
             addBookQuery.executeUpdate();
 
@@ -365,9 +347,9 @@ public class BibliotekaDAO {
 
     public List<Book> getRestBooks() {
 
-        ArrayList<Book> preostaleKnjige = new ArrayList<>(books());
+        ArrayList<Book> restBooks = new ArrayList<>(books());
 
-        return preostaleKnjige.stream().map(book -> book.setBrojKnjiga(book.getBrojKnjiga() - useBook(book.getId()))).collect(Collectors.toList());
+        return restBooks.stream().map(book -> book.setNumberOfBooks(book.getNumberOfBooks() - useBook(book.getId()))).collect(Collectors.toList());
 
     }
 
@@ -394,8 +376,8 @@ public class BibliotekaDAO {
             editBookQuery.setString(1, book.getName());
             editBookQuery.setString(2, book.getAuthor());
             editBookQuery.setString(3, book.getGenre());
-            editBookQuery.setInt(4, book.getBrojStranica());
-            editBookQuery.setInt(5, book.getBrojKnjiga());
+            editBookQuery.setInt(4, book.getNumberOfPages());
+            editBookQuery.setInt(5, book.getNumberOfBooks());
             editBookQuery.setInt(6, book.getId());
 
             editBookQuery.executeUpdate();
@@ -419,10 +401,10 @@ public class BibliotekaDAO {
 
 
         addRentQuery.setInt(1, id);
-        addRentQuery.setString(2, r.getIznajmljivac().getUsername());
-        addRentQuery.setInt(3, r.getKnjiga().getId());
-        addRentQuery.setString(4, r.getPocetak().format(formater));
-        addRentQuery.setString(5, r.getKraj().format(formater));
+        addRentQuery.setString(2, r.getRenter().getUsername());
+        addRentQuery.setInt(3, r.getBook().getId());
+        addRentQuery.setString(4, r.getDateBegin().format(formater));
+        addRentQuery.setString(5, r.getDateEnd().format(formater));
 
         addRentQuery.executeUpdate();
 

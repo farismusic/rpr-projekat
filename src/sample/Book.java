@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Book implements Comparable<Book>{
     String name, author, genre;
-    int id, brojStranica, brojKnjiga;
+    int id, numberOfPages, numberOfBooks;
 
-    public Book(int id, String name, String author, String genre, int brojStranica, int brojKnjiga) {
+    public Book(int id, String name, String author, String genre, int numberOfPages, int numberOfBooks) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.genre = genre;
-        this.brojStranica = brojStranica;
-        this.brojKnjiga = brojKnjiga;
+        this.numberOfPages = numberOfPages;
+        this.numberOfBooks = numberOfBooks;
     }
 
     public Book() {
@@ -45,21 +45,21 @@ public class Book implements Comparable<Book>{
         return this;
     }
 
-    public int getBrojStranica() {
-        return brojStranica;
+    public int getNumberOfPages() {
+        return numberOfPages;
     }
 
-    public Book setBrojStranica(int brojStranica) {
-        this.brojStranica = brojStranica;
+    public Book setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
         return this;
     }
 
-    public int getBrojKnjiga() {
-        return brojKnjiga;
+    public int getNumberOfBooks() {
+        return numberOfBooks;
     }
 
-    public Book setBrojKnjiga(int brojKnjiga) {
-        this.brojKnjiga = brojKnjiga;
+    public Book setNumberOfBooks(int numberOfBooks) {
+        this.numberOfBooks = numberOfBooks;
         return this;
     }
 
