@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,59 +7,62 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class UserMainController {
 
 
     public MenuItem odjaviSe;
 
-    public TableView<Map.Entry<String,String>> tableView;
-    public TableColumn<Map.Entry<String, String>, String> columnNaziv;
-    public TableColumn<Map.Entry<String, String>, String> columnRok;
+    public TableView<Renting> tableView;
+    public TableColumn columnNaziv;
+    public TableColumn<Renting, LocalDateTime> columnRok;
+
+    public ListView<Notification> listViewObavijesti;
 
     private BibliotekaDAO baza;
     private User user;
-    private ObservableList<Map.Entry<String, String>> iznajmljeneKnjige;
+    private ObservableList<Renting> iznajmljeneKnjige;
+    private ObservableList<Notification> notifications;
 
     public UserMainController(User user) {
         baza = BibliotekaDAO.getInstance();
         this.user = user;
-        iznajmljeneKnjige = FXCollections.observableArrayList(baza.getUsersBooks(user).entrySet());
+        iznajmljeneKnjige = FXCollections.observableArrayList(baza.usersRentings(user));
     }
 
     @FXML
     public void initialize(){
 
+        listViewObavijesti.setItems(FXCollections.observableArrayList(checkNotifications()));
+
         tableView.setItems(iznajmljeneKnjige);
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-        columnNaziv.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
+        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("knjiga"));
+        columnRok.setCellValueFactory(new PropertyValueFactory<>("kraj"));
 
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
-                // this callback returns property for just one cell, you can't use a loop here
-                // for first column we use key
-                return new SimpleStringProperty(p.getValue().getKey());
-            }
+        columnRok.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
+            return new TableCell<Renting, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(item.format(formater));
+                    }
+                }
+            };
         });
 
-        columnRok.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry<String, String>, String>, ObservableValue<String>>() {
-
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Map.Entry<String, String>, String> p) {
-                // for second column we use value
-                return new SimpleStringProperty(p.getValue().getValue());
-            }
-        });
-
-        tableView.getColumns().setAll(columnNaziv, columnRok);
 
     }
 
@@ -103,4 +104,21 @@ public class UserMainController {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Notification> checkNotifications() {
+
+        ArrayList<Notification> n = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        for(Renting r : iznajmljeneKnjige) {
+
+            if (r.getKraj().isBefore(now)) n.add(new Notification(r));
+
+        }
+
+        return n;
+
+    }
+
+
 }
