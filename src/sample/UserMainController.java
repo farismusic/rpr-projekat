@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -18,38 +21,34 @@ import java.util.ArrayList;
 
 public class UserMainController {
 
-
-    public MenuItem odjaviSe;
-
     public TableView<Renting> tableView;
-    public TableColumn columnNaziv;
-    public TableColumn<Renting, LocalDateTime> columnRok;
+    public TableColumn columnName;
+    public TableColumn<Renting, LocalDateTime> columnDateEnd;
 
-    public ListView<Notification> listViewObavijesti;
+    public ListView<Notification> listViewNotifications;
 
-    private BibliotekaDAO baza;
+    private BibliotekaDAO db;
     private User user;
-    private ObservableList<Renting> iznajmljeneKnjige;
-    private ObservableList<Notification> notifications;
+    private ObservableList<Renting> rentedBooks;
 
     public UserMainController(User user) {
-        baza = BibliotekaDAO.getInstance();
+        db = BibliotekaDAO.getInstance();
         this.user = user;
-        iznajmljeneKnjige = FXCollections.observableArrayList(baza.usersRentings(user));
+        rentedBooks = FXCollections.observableArrayList(db.usersRentings(user));
     }
 
     @FXML
     public void initialize(){
 
-        listViewObavijesti.setItems(FXCollections.observableArrayList(checkNotifications()));
+        listViewNotifications.setItems(FXCollections.observableArrayList(checkNotifications()));
 
-        tableView.setItems(iznajmljeneKnjige);
+        tableView.setItems(rentedBooks);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("book"));
-        columnRok.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("book"));
+        columnDateEnd.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
-        columnRok.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
+        columnDateEnd.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
             return new TableCell<Renting, LocalDateTime>() {
                 @Override
                 protected void updateItem(LocalDateTime item, boolean empty) {
@@ -66,7 +65,7 @@ public class UserMainController {
 
     }
 
-    public void odjaviKorisnika(ActionEvent actionEvent) {
+    public void logOutUser(ActionEvent actionEvent) {
         closeWindow();
 
         Parent root = null;
@@ -110,7 +109,7 @@ public class UserMainController {
         ArrayList<Notification> n = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
 
-        for(Renting r : iznajmljeneKnjige) {
+        for(Renting r : rentedBooks) {
 
             if (r.getDateEnd().isBefore(now)) n.add(new Notification(r));
 

@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class UsersRentingsController {
 
     private ObservableList<Renting> rentings;
-    public TableView<Renting> tableViewDizanja;
-    public TableColumn columnKnjiga;
-    public TableColumn<Renting, LocalDateTime> columnPocetak;
-    public TableColumn<Renting, LocalDateTime> columnKraj;
+    public TableView<Renting> tableViewRentings;
+    public TableColumn columnBook;
+    public TableColumn<Renting, LocalDateTime> columnDateBegin;
+    public TableColumn<Renting, LocalDateTime> columnDateEnd;
     private Renting renting;
 
     public Renting getRenting() {
@@ -41,15 +41,15 @@ public class UsersRentingsController {
 
 
 
-        tableViewDizanja.setItems(rentings);
+        tableViewRentings.setItems(rentings);
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
 
-        columnKnjiga.setCellValueFactory(new PropertyValueFactory<>("book"));
-        columnPocetak.setCellValueFactory(new PropertyValueFactory<>("dateBegin"));
-        columnKraj.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
+        columnBook.setCellValueFactory(new PropertyValueFactory<>("book"));
+        columnDateBegin.setCellValueFactory(new PropertyValueFactory<>("dateBegin"));
+        columnDateEnd.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
 
-        columnPocetak.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
+        columnDateBegin.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
             return new TableCell<Renting, LocalDateTime>() {
                 @Override
                 protected void updateItem(LocalDateTime item, boolean empty) {
@@ -63,7 +63,7 @@ public class UsersRentingsController {
             };
         });
 
-        columnKraj.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
+        columnDateEnd.setCellFactory((TableColumn<Renting, LocalDateTime> column) -> {
             return new TableCell<Renting, LocalDateTime>() {
                 @Override
                 protected void updateItem(LocalDateTime item, boolean empty) {
@@ -81,9 +81,9 @@ public class UsersRentingsController {
 
     }
 
-    public void actionVratiKnjigu (ActionEvent actionEvent) {
+    public void actionGiveBackBook(ActionEvent actionEvent) {
 
-        renting = tableViewDizanja.getSelectionModel().getSelectedItem();
+        renting = tableViewRentings.getSelectionModel().getSelectedItem();
         if(renting == null) return;
 
         closeWindow();
@@ -91,7 +91,7 @@ public class UsersRentingsController {
     }
 
     private void closeWindow(){
-        Stage stage = (Stage) tableViewDizanja.getScene().getWindow();
+        Stage stage = (Stage) tableViewRentings.getScene().getWindow();
         stage.close();
     }
 }

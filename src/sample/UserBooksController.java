@@ -10,28 +10,28 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class UserBooksController {
 
     public TableView<Book> tableView;
-    public TableColumn columnNaziv;
-    public TableColumn columnAutor;
-    public TableColumn columnZanr;
-    public TableColumn columnBrojStranica;
-    public TableColumn columnDostupnih;
-    private BibliotekaDAO baza;
-    private ObservableList<Book> knjige;
+    public TableColumn columnName;
+    public TableColumn columnAuthor;
+    public TableColumn columnGenre;
+    public TableColumn columnNumberOfPages;
+    public TableColumn columnAvailable;
+    private BibliotekaDAO db;
+    private ObservableList<Book> books;
 
 
     public UserBooksController() {
-        baza = BibliotekaDAO.getInstance();
-        knjige = FXCollections.observableArrayList(baza.getRestBooks());
+        db = BibliotekaDAO.getInstance();
+        books = FXCollections.observableArrayList(db.getRestBooks());
     }
 
     @FXML
     public void initialize(){
-        tableView.setItems(knjige);
+        tableView.setItems(books);
 
-        columnNaziv.setCellValueFactory(new PropertyValueFactory<>("name"));
-        columnAutor.setCellValueFactory(new PropertyValueFactory<>("author"));
-        columnZanr.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        columnBrojStranica.setCellValueFactory(new PropertyValueFactory<>("numberOfPages"));
-        columnDostupnih.setCellValueFactory(new PropertyValueFactory<>("numberOfBooks"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        columnGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        columnNumberOfPages.setCellValueFactory(new PropertyValueFactory<>("numberOfPages"));
+        columnAvailable.setCellValueFactory(new PropertyValueFactory<>("numberOfBooks"));
     }
 }

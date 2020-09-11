@@ -10,7 +10,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Profil">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#odjaviKorisnika" text="Odjavi se" />
+              <MenuItem mnemonicParsing="false" onAction="#logOutUser" text="Odjavi se" />
             </items>
           </Menu>
         </menus>
@@ -26,8 +26,8 @@
             </Label>
             <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="columnNaziv" prefWidth="75.0" text="Naziv" />
-                <TableColumn fx:id="columnRok" prefWidth="75.0" text="Vratiti" />
+                <TableColumn fx:id="columnName" prefWidth="75.0" text="Naziv" />
+                <TableColumn fx:id="columnDateEnd" prefWidth="75.0" text="Vratiti" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -50,7 +50,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ListView fx:id="listViewObavijesti" prefHeight="200.0" prefWidth="200.0">
+            <ListView fx:id="listViewNotifications" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

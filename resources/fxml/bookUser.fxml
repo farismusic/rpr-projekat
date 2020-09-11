@@ -14,11 +14,11 @@
    <children>
       <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="columnNaziv" prefWidth="75.0" text="Naziv" />
-          <TableColumn fx:id="columnAutor" prefWidth="75.0" text="Autor" />
-            <TableColumn fx:id="columnZanr" prefWidth="75.0" text="Žanr" />
-            <TableColumn fx:id="columnBrojStranica" prefWidth="75.0" text="Broj stranica" />
-            <TableColumn fx:id="columnDostupnih" prefWidth="75.0" text="Dostupnih knjiga" />
+          <TableColumn fx:id="columnName" prefWidth="75.0" text="Naziv" />
+          <TableColumn fx:id="columnAuthor" prefWidth="75.0" text="Autor" />
+            <TableColumn fx:id="columnGenre" prefWidth="75.0" text="Žanr" />
+            <TableColumn fx:id="columnNumberOfPages" prefWidth="75.0" text="Broj stranica" />
+            <TableColumn fx:id="columnAvailable" prefWidth="75.0" text="Dostupnih knjiga" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

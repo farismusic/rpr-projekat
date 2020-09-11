@@ -11,13 +11,13 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="tableViewDizanja" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewRentings" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="columnKnjiga" prefWidth="186.0" text="Knjiga" />
-            <TableColumn fx:id="columnPocetak" prefWidth="145.0" text="Datum uzimanja knjige" />
-            <TableColumn fx:id="columnKraj" prefWidth="175.0" text="Rok za vraćanje knjige" />
+          <TableColumn fx:id="columnBook" prefWidth="186.0" text="Knjiga" />
+            <TableColumn fx:id="columnDateBegin" prefWidth="145.0" text="Datum uzimanja knjige" />
+            <TableColumn fx:id="columnDateEnd" prefWidth="175.0" text="Rok za vraćanje knjige" />
         </columns>
       </TableView>
-      <Button mnemonicParsing="false" onAction="#actionVratiKnjigu" text="Vrati knjigu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#actionGiveBackBook" text="Vrati knjigu" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
    </children>
 </GridPane>
