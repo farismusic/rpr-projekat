@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -48,11 +49,12 @@ public class RootController {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"), bundle);
             RegisterController registerController = new RegisterController(true);
             loader.setController(registerController);
             root = loader.load();
-            stage.setTitle("Dodaj admina");
+            stage.setTitle(bundle.getString("addAdmin"));
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -91,9 +93,10 @@ public class RootController {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
             Stage primaryStage = new Stage();
-            primaryStage.setTitle("Login");
+            primaryStage.setTitle(bundle.getString("login"));
             primaryStage.setScene(new Scene(root, 250, 225));
             primaryStage.setResizable(false);
             primaryStage.show();

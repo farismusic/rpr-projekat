@@ -6,14 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root, 250, 225));
+
+
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/languages.fxml"), bundle);
+        primaryStage.setTitle(bundle.getString("chooseLanguage"));
+        primaryStage.setScene(new Scene(root, 150, 150));
         primaryStage.setResizable(false);
         primaryStage.show();
 

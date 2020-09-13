@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -16,15 +16,15 @@
    <children>
       <TableView fx:id="tableViewAdmins" prefHeight="170.0" prefWidth="319.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn fx:id="columnName" prefWidth="84.0" text="Ime" />
-          <TableColumn fx:id="columnLastName" prefWidth="102.0" text="Prezime" />
-            <TableColumn fx:id="columnUsername" prefWidth="131.0" text="Username" />
+          <TableColumn fx:id="columnName" prefWidth="84.0" text="%name" />
+          <TableColumn fx:id="columnLastName" prefWidth="102.0" text="%lastName" />
+            <TableColumn fx:id="columnUsername" prefWidth="131.0" text="%username" />
         </columns>
       </TableView>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#actionAddAdmin" text="Dodaj admina" />
-            <Button layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#actionRemoveAdmin" text="Izbriši admina" />
+          <Button mnemonicParsing="false" onAction="#actionAddAdmin" text="%addAdmin" />
+            <Button layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#actionRemoveAdmin" text="%removeAdmin" />
         </buttons>
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -32,9 +32,9 @@
       </ButtonBar>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="Profil">
+          <Menu mnemonicParsing="false" text="%account">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#actionLogOut" text="Odjavite se" />
+              <MenuItem mnemonicParsing="false" onAction="#actionLogOut" text="%logOut" />
             </items>
           </Menu>
         </menus>

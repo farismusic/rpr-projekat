@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Profil">
+          <Menu mnemonicParsing="false" text="%account">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#logOutUser" text="Odjavi se" />
+              <MenuItem mnemonicParsing="false" onAction="#logOutUser" text="%logOut" />
             </items>
           </Menu>
         </menus>
@@ -19,15 +19,15 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Trenutno podignute knjige:">
+            <Label text="%rentedBooks">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
             <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="columnName" prefWidth="75.0" text="Naziv" />
-                <TableColumn fx:id="columnDateEnd" prefWidth="75.0" text="Vratiti" />
+                <TableColumn fx:id="columnName" prefWidth="75.0" text="%name" />
+                <TableColumn fx:id="columnDateEnd" prefWidth="75.0" text="%dateEnd" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -42,7 +42,7 @@
    <left>
       <VBox prefHeight="375.0" prefWidth="165.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Obavijesti:" underline="true">
+            <Label text="%notifications" underline="true">
                <VBox.margin>
                   <Insets left="10.0" top="30.0" />
                </VBox.margin>
@@ -55,7 +55,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ListView>
-            <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#showBooks" text="Dostupne knjige">
+            <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#showBooks" text="%availableBooks">
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>

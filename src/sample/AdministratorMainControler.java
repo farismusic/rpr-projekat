@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -23,6 +24,7 @@ public class AdministratorMainControler {
     public TableColumn columnName;
     public TableColumn columnNumberOfPages;
     public TableColumn columnAvailable;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public TableView<User> tableViewUsers;
     public TableColumn columnUsername;
@@ -57,11 +59,13 @@ public class AdministratorMainControler {
     public void logOutAdmin(ActionEvent actionEvent) {
         closeWindow();
 
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
             Stage primaryStage = new Stage();
-            primaryStage.setTitle("Login");
+            primaryStage.setTitle(bundle.getString("login"));
             primaryStage.setScene(new Scene(root, 250, 225));
             primaryStage.setResizable(false);
             primaryStage.show();
@@ -83,11 +87,11 @@ public class AdministratorMainControler {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"), bundle);
             BookController bookController = new BookController();
             loader.setController(bookController);
             root = loader.load();
-            stage.setTitle("Dodaj knjigu");
+            stage.setTitle(bundle.getString("addBook"));
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -143,7 +147,7 @@ public class AdministratorMainControler {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/book.fxml"), bundle);
             BookController bookController = new BookController(b);
             loader.setController(bookController);
             root = loader.load();
@@ -205,11 +209,11 @@ public class AdministratorMainControler {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentBook.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/rentBook.fxml"), bundle);
             RentBookControler rentBookController = new RentBookControler(db.books(), u);
             loader.setController(rentBookController);
             root = loader.load();
-            stage.setTitle("Iznajmljivanje knjige za korisnika " + u.getUsername());
+            stage.setTitle(bundle.getString("rentForUser") + u.getUsername());
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -239,11 +243,11 @@ public class AdministratorMainControler {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usersRentings.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/usersRentings.fxml"), bundle);
             UsersRentingsController usersRentingsController = new UsersRentingsController(db.usersRentings(user));
             loader.setController(usersRentingsController);
             root = loader.load();
-            stage.setTitle("Iznajmljivanja korisnika " + user.getUsername());
+            stage.setTitle(bundle.getString("rentsUser") + user.getUsername());
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();

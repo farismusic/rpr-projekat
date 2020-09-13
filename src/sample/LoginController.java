@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -17,23 +19,29 @@ public class LoginController {
     public TextField fieldUsername;
     public PasswordField fieldPassword;
     public Button btnLogin;
+    public Label labelUsername;
     private BibliotekaDAO db;
     private Person person;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
 
     public LoginController() {
         db = BibliotekaDAO.getInstance();
         person = new Person();
     }
 
+
+
     public void otvoriRegistraciju(ActionEvent actionEvent) {
         Stage stage = new Stage();
         Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"), bundle);
             RegisterController registerController = new RegisterController(false);
             loader.setController(registerController);
             root = loader.load();
-            stage.setTitle("Dodaj korisnika");
+            stage.setTitle(bundle.getString("addUser"));
             stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.setResizable(false);
             stage.show();
@@ -54,6 +62,8 @@ public class LoginController {
     }
 
     public void login(ActionEvent actionEvent) {
+
+
         boolean sveOk = true;
 
         if (fieldUsername.getText().trim().isEmpty()) {
@@ -85,11 +95,12 @@ public class LoginController {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/root.fxml"));
+                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/root.fxml"), bundle);
                 RootController rootController = new RootController();
                 loader.setController(rootController);
                 root = loader.load();
-                stage.setTitle("root");
+                stage.setTitle("Root");
                 stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
                 stage.setResizable(false);
                 stage.show();
@@ -112,7 +123,7 @@ public class LoginController {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminMain.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminMain.fxml"), bundle);
                 AdministratorMainControler adminMainController = new AdministratorMainControler((Administrator) p);
                 loader.setController(adminMainController);
                 root = loader.load();
@@ -131,7 +142,7 @@ public class LoginController {
             Stage stage = new Stage();
             Parent root = null;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userMain.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userMain.fxml"), bundle);
                 UserMainController userMainController = new UserMainController((User) p);
                 loader.setController(userMainController);
                 root = loader.load();
@@ -151,6 +162,12 @@ public class LoginController {
         Stage stage = (Stage) fieldUsername.getScene().getWindow();
         stage.close();
     }
+
+    public void actionChangeLanguage(ActionEvent actionEvent){
+        Locale.setDefault(new Locale("en", "US"));
+    }
+
+
 
 
 

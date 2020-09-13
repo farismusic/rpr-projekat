@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class UserMainController {
 
@@ -67,12 +68,13 @@ public class UserMainController {
 
     public void logOutUser(ActionEvent actionEvent) {
         closeWindow();
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"), bundle);
             Stage primaryStage = new Stage();
-            primaryStage.setTitle("Login");
+            primaryStage.setTitle(bundle.getString("login"));
             primaryStage.setScene(new Scene(root, 250, 225));
             primaryStage.setResizable(false);
             primaryStage.show();
@@ -90,10 +92,12 @@ public class UserMainController {
 
     public void showBooks(){
         Parent root = null;
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/bookUser.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/bookUser.fxml"), bundle);
             Stage primaryStage = new Stage();
-            primaryStage.setTitle("Knjige");
+            primaryStage.setTitle(bundle.getString("books"));
             primaryStage.setScene(new Scene(root, 700, 400));
             primaryStage.setResizable(false);
             primaryStage.show();
