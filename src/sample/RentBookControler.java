@@ -10,12 +10,14 @@ import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class RentBookControler {
 
     private ObservableList<Book> books;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
     private Renting renting;
     private User user;
     private BibliotekaDAO db;
@@ -58,9 +60,9 @@ public class RentBookControler {
         } else {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Greška");
-            alert.setHeaderText("Nedostupno: " + "\" " + book.getName() + " \"");
-            alert.setContentText("Trenutno nema dostupnih knjiga" + "\" " + book.getName() + " \"");
+            alert.setTitle(bundle.getString("error"));
+            alert.setHeaderText(bundle.getString("unavailable") + " " + "\" " + book.getName() + " \"");
+            alert.setContentText(bundle.getString("unavailableBooks") + " " + "\" " + book.getName() + " \"");
             alert.setResizable(true);
             alert.show();
 

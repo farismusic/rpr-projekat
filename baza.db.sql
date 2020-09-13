@@ -34,9 +34,4 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"password"	TEXT,
 	PRIMARY KEY("username")
 );
-INSERT INTO "books" VALUES (1,'Derviš i smrt','Meša Selimović','psihološka drama',431,50);
-INSERT INTO "books" VALUES (2,'Sto godina samoće','nepoznato','nepoznato',431,50);
-INSERT INTO "admins" VALUES ('farismusic','Faris','Mušić','fmusic2@etf.unsa.ba','fmusic123');
-INSERT INTO "users" VALUES ('sturko1','Sajra','Turko','sturko1@etf.unsa.ba','nekaidezivot99');
-INSERT INTO "users" VALUES ('aturkusic1','Arslan','Turkušić','aturkusic1@etf.unsa.ba','12345678');
 COMMIT;
