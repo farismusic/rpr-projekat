@@ -119,9 +119,9 @@ public class AdministratorMainControler {
 
         if (db.useBook(book.getId()) != 0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Greška");
-            alert.setHeaderText("Knjigu " + "\" " + book.getName() + " \"" + " se ne može izbrisati");
-            alert.setContentText("Knjiga " + "\" " + book.getName() + " \"" + " nije vraćena od svih korisnika");
+            alert.setTitle(bundle.getString("error"));
+            alert.setHeaderText(bundle.getString("book") + " \" " + book.getName() + " \" " + bundle.getString("cantDelete"));
+            alert.setContentText(bundle.getString("book") + " \" " + book.getName() + " \" " + bundle.getString("didntGotBack"));
             alert.setResizable(true);
             alert.show();
             return;
@@ -181,9 +181,9 @@ public class AdministratorMainControler {
 
         if (db.usersRentings(user).size() != 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Greška");
-            alert.setHeaderText("Korisnika " + user.getUsername() + " se ne može izbrisati");
-            alert.setContentText("Korisnik " + user.getUsername() + " nije izmirio svoje obaveze prema biblioteci");
+            alert.setTitle(bundle.getString("error"));
+            alert.setHeaderText(bundle.getString("user") + " " + user.getUsername() + " " + bundle.getString("cantDelete"));
+            alert.setContentText(bundle.getString("user") + user.getUsername() + " " + bundle.getString("obligations"));
             alert.setResizable(true);
             alert.show();
             return;

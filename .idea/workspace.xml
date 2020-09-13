@@ -19,13 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Urađena internacionalizacija. Dostupni jezici su bosanski i engleski.">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="U LoginController iskorištene niti.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/fxml/register.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baza.db" beforeDir="false" afterPath="$PROJECT_DIR$/baza.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/sample/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/sample/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/rpr-projekat/sample/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/rpr-projekat/sample/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Translation.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Translation.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Translation_bs.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Translation_bs.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Translation_en_US.properties" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Translation_en_US.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/AdministratorMainControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/AdministratorMainControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/BibliotekaDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/RegisterController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +274,7 @@
       <workItem from="1599810983992" duration="7889000" />
       <workItem from="1599856072349" duration="2730000" />
       <workItem from="1599860340752" duration="554000" />
-      <workItem from="1599992661692" duration="12057000" />
+      <workItem from="1599992661692" duration="15729000" />
     </task>
     <task id="LOCAL-00001" summary="Kreiran GUI za Login i Registraciju.">
       <created>1582066768646</created>
@@ -502,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600004986676</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="U LoginController iskorištene niti.">
+      <created>1600005828561</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1600005828561</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +536,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Popravljen dizajn. Umjesto samo klase User sada imam klasu Person iz koje su izvedene Administrator i User s tim da cu o Administratoru cuvati vise podataka." />
     <MESSAGE value="implementirano Izbacivanje alerta ako korisnik sa istim usernameom vec postoji i trazenej u bazi podataka pri logovanju" />
     <MESSAGE value="Izbacivanje alerta ako pri prijavi korisnik ne postoji u bazi" />
     <MESSAGE value="Kompletirana forma prijave i forma registracije." />
@@ -549,7 +560,8 @@
     <MESSAGE value="80% koda prevedeno na engleski jezik." />
     <MESSAGE value="Izbrisani bespotrebni importi." />
     <MESSAGE value="Urađena internacionalizacija. Dostupni jezici su bosanski i engleski." />
-    <option name="LAST_COMMIT_MESSAGE" value="Urađena internacionalizacija. Dostupni jezici su bosanski i engleski." />
+    <MESSAGE value="U LoginController iskorištene niti." />
+    <option name="LAST_COMMIT_MESSAGE" value="U LoginController iskorištene niti." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -578,25 +590,25 @@
     </state>
     <state x="592" y="217" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599994312806" />
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599672370568" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1600005753125">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1600009627454">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600005753125" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600009627454" />
     <state width="1876" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1599823195677" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1600005753125">
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1600009627453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600005753125" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600009627453" />
     <state width="1876" height="277" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1599823195661" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1600005753125">
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1600009627453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600005753125" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600009627453" />
     <state width="1876" height="277" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1599823195661" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1600005753125">
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1600009627453">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600005753125" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600009627453" />
     <state width="1876" height="277" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1599823195661" />
     <state width="1876" height="193" key="GridCell.Tab.1.bottom" timestamp="1599684527772">
       <screen x="0" y="0" width="1920" height="1040" />

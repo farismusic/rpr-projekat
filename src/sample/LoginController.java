@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -47,14 +46,7 @@ public class LoginController {
             stage.setResizable(false);
             stage.show();
 
-            /*stage.setOnHiding(event -> {
-                Administrator a = registerController.getAdmin();
-                if (a != null) {
-                    admini.clear();
-                    admini.addAll(baza.admins());
-                    tableViewAdmini.refresh();
-                }
-            });*/
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,9 +114,9 @@ public class LoginController {
 
         }else if (p == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Greška");
-            alert.setHeaderText("Korisnik ne postoji");
-            alert.setContentText("Pokušajte ponovo");
+            alert.setTitle(bundle.getString("error"));
+            alert.setHeaderText(bundle.getString("notexists"));
+            alert.setContentText(bundle.getString("tryAgain"));
             alert.setResizable(true);
             alert.show();
         } else if (p instanceof Administrator) {
@@ -174,9 +166,6 @@ public class LoginController {
         stage.close();
     }
 
-    public void actionChangeLanguage(ActionEvent actionEvent){
-        Locale.setDefault(new Locale("en", "US"));
-    }
 
 
 

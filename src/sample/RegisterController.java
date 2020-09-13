@@ -7,6 +7,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class RegisterController {
 
 
@@ -109,21 +111,22 @@ public class RegisterController {
             admin.setPassword(fieldPassword.getText());
         }
 
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
         if(!type && db.addUser(user)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Uspješna registracija");
-            alert.setHeaderText("Uspješno ste kreirali korisnički profil");
-            alert.setContentText("Prijavite se na vaš profil");
+            alert.setTitle(bundle.getString("successfulRegistration"));
+            alert.setHeaderText(bundle.getString("createdUserAcc"));
+            alert.setContentText(bundle.getString("loginAccUser"));
             alert.setResizable(true);
             alert.show();
             closeWindow();
-        } else if (type){
-            db.addAdmin(admin);
+        } else if (type && db.addAdmin(admin)){
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Uspješna registracija");
-            alert.setHeaderText("Uspješno ste kreirali admin profil");
-            alert.setContentText("Admin se može ulogovati na svoj profil");
+            alert.setTitle(bundle.getString("successfulRegistration"));
+            alert.setHeaderText(bundle.getString("createdAdminAcc"));
+            alert.setContentText(bundle.getString("loginAccAdmin"));
             alert.setResizable(true);
             alert.show();
             closeWindow();

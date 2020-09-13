@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,7 @@ public class BibliotekaDAO {
 
     private static BibliotekaDAO instance;
     private Connection connection;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
     private PreparedStatement addUserQuery, addAdminQuery, findAdminQuery, findUserQuery, adminsQuery, usersQuery, nextIdBookQuery, getRentingsQuery, nextIdRentQuery,
             addBookQuery, booksQuery, removeBookQuery, removeUserQuery, editBookQuery, addRentQuery, useBookQuery, usersRentingsQuery, findBookQuery, removeRentQuery,
             removeAdminQuery;
@@ -146,7 +148,7 @@ public class BibliotekaDAO {
         }
     }
 
-    public void addAdmin(Administrator administrator){
+    public boolean addAdmin(Administrator administrator){
 
 
         ArrayList<User> users = new ArrayList<>();
@@ -176,8 +178,11 @@ public class BibliotekaDAO {
             addAdminQuery.setString(5, administrator.getPassword());
 
             addAdminQuery.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             alreadyExists(administrator.getUsername());
+            return false;
         }
     }
 
@@ -299,9 +304,9 @@ public class BibliotekaDAO {
 
     public void alreadyExists(String username){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Greška");
-        alert.setHeaderText("Korisnik sa tim korisničkim imenom " + username + " već postoji");
-        alert.setContentText("Pokušajte ponovo");
+        alert.setTitle(bundle.getString("error"));
+        alert.setHeaderText(bundle.getString("username") + " " + username + " " + bundle.getString("exists"));
+        alert.setContentText(bundle.getString("tryAgain"));
         alert.setResizable(true);
         alert.show();
     }
