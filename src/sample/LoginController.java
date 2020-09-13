@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -64,25 +65,35 @@ public class LoginController {
     public void login(ActionEvent actionEvent) {
 
 
-        boolean sveOk = true;
+        AtomicBoolean sveOk = new AtomicBoolean(true);
 
-        if (fieldUsername.getText().trim().isEmpty()) {
-            fieldUsername.getStyleClass().removeAll("poljeIspravno");
-            fieldUsername.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
-        } else {
-            fieldUsername.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldUsername.getStyleClass().add("poljeIspravno");
-        }
+        Thread thread1 = new Thread(() -> {
+            if (fieldUsername.getText().trim().isEmpty()) {
+                fieldUsername.getStyleClass().removeAll("poljeIspravno");
+                fieldUsername.getStyleClass().add("poljeNijeIspravno");
+                sveOk.set(false);
+            } else {
+                fieldUsername.getStyleClass().removeAll("poljeNijeIspravno");
+                fieldUsername.getStyleClass().add("poljeIspravno");
+            }
+        });
 
-        if (fieldPassword.getText().trim().isEmpty()) {
-            fieldPassword.getStyleClass().removeAll("poljeIspravno");
-            fieldPassword.getStyleClass().add("poljeNijeIspravno");
-            sveOk = false;
-        } else {
-            fieldPassword.getStyleClass().removeAll("poljeNijeIspravno");
-            fieldPassword.getStyleClass().add("poljeIspravno");
-        }
+
+        Thread thread2 = new Thread(() -> {
+            if (fieldPassword.getText().trim().isEmpty()) {
+                fieldPassword.getStyleClass().removeAll("poljeIspravno");
+                fieldPassword.getStyleClass().add("poljeNijeIspravno");
+                sveOk.set(false);
+            } else {
+                fieldPassword.getStyleClass().removeAll("poljeNijeIspravno");
+                fieldPassword.getStyleClass().add("poljeIspravno");
+            }
+        });
+
+        thread1.run();
+        thread2.run();
+
+
 
         person.setUsername(fieldUsername.getText());
         person.setPassword(fieldPassword.getText());
