@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="514.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="86.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TableView fx:id="tableViewRentings" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="columnBook" prefWidth="186.0" text="%name" />
+            <TableColumn fx:id="columnDateBegin" prefWidth="145.0" text="%dateBegin" />
+            <TableColumn fx:id="columnDateEnd" prefWidth="175.0" text="%dateEnd" />
+        </columns>
+      </TableView>
+      <Button mnemonicParsing="false" onAction="#actionGiveBackBook" text="%giveBackBook" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+   </children>
+</GridPane>
