@@ -12,6 +12,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
@@ -26,9 +29,11 @@ public class RootController {
     private BibliotekaDAO db;
     private ObservableList<Administrator> admins;
 
+
     public RootController() {
         db = BibliotekaDAO.getInstance();
         admins = FXCollections.observableArrayList(db.admins());
+
     }
 
 
@@ -103,6 +108,44 @@ public class RootController {
 
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionIspisiKorisnike(ActionEvent actionEvent){
+        //User user = new User("user", "ime", "prezime", "email", "pass");
+        try
+        {
+            File file=new File("users.txt");
+            FileWriter fw=new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw=new BufferedWriter(fw);
+            for (User user : db.users()){
+                bw.write(user.toString() + "\n");
+            }
+
+            bw.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void actionIspisiAdmine(ActionEvent actionEvent){
+        //User user = new User("user", "ime", "prezime", "email", "pass");
+        try
+        {
+            File file=new File("admins.txt");
+            FileWriter fw=new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw=new BufferedWriter(fw);
+            for (Administrator admin : db.admins()){
+                bw.write(admin.toString() + "\n");
+            }
+
+            bw.close();
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }

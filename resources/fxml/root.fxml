@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -25,6 +25,8 @@
         <buttons>
           <Button mnemonicParsing="false" onAction="#actionAddAdmin" text="%addAdmin" />
             <Button layoutX="256.0" layoutY="24.0" mnemonicParsing="false" onAction="#actionRemoveAdmin" text="%removeAdmin" />
+            <Button mnemonicParsing="false" onAction="#actionIspisiKorisnike" text="users.txt" />
+            <Button mnemonicParsing="false" onAction="#actionIspisiAdmine" text="admins.txt" />
         </buttons>
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
